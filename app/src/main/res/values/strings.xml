@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GreeningU</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- login -->
+    <string name="usuario">Usuario</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="registrar">Registrar-se</string>
+    <string name="title_activity_registro">RegistroActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+</resources>
