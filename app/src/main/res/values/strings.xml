@@ -7,7 +7,14 @@
     <string name="senha">Senha</string>
     <string name="entrar">Entrar</string>
     <string name="registrar">Registrar-se</string>
-    <string name="title_activity_registro">RegistroActivity</string>
+
+    <string name="title_activity_registro">Cadastrar</string>
+
+    <string-array name="sexo">
+        <item>M</item>
+        <item>F</item>
+
+    </string-array>
 
     <string name="hello_world">Hello world!</string>
 </resources>

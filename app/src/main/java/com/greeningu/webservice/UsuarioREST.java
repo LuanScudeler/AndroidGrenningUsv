@@ -3,14 +3,11 @@ package com.greeningu.webservice;
 import com.google.gson.Gson;
 import com.greeningu.bean.Usuario;
 
-import java.net.URI;
-import java.net.URL;
-
 /**
  * Created by Jadson on 03/05/2015.
  */
 public class UsuarioREST {
-    private static final String URL_WS = "http://192.168.0.105:8080/GreeningU/usuario";
+    private static final String URL_WS = "http://192.168.0.103:8080/GreeningU/usuario";
 
     //TODO demais métodos para manipular usuário
     public String inserir(Usuario usuario)throws Exception{
@@ -24,5 +21,7 @@ public class UsuarioREST {
             throw new Exception(resposta[1]);
         }
     }
+
+
 }
 

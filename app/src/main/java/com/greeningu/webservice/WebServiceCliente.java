@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 
@@ -16,7 +17,34 @@ import java.net.URI;
  * Created by Jadson on 03/05/2015.
  */
 public class WebServiceCliente {
-     //TODO métodos get, delete e put(se necessário)
+
+    public final String[] get(String url){
+
+        String[] result = new String[2];
+        HttpGet httpGet = new HttpGet(url);
+        HttpResponse httpResponse;
+
+        try{
+            httpResponse = HttpClientSingleton.getHttpClientInstance().execute(httpGet);
+            HttpEntity httpEntity = httpResponse.getEntity();
+
+            if(httpEntity != null){
+                result[0] = String.valueOf(httpResponse.getStatusLine().getStatusCode());
+                InputStream inputStream = httpEntity.getContent();
+                result[1] = toString(inputStream);
+                inputStream.close();
+                Log.i("get", "Result from post JsonPost : " + result[0] + " : " + result[1]);
+            }
+        }catch(Exception e){
+            Log.e("NGVL", "Falha ao acessar Web service", e);
+            result[0] = "0";
+            result[1] = "Falha de rede!";
+        }
+        return result;
+    }
+
+
+
     public final String[] post(String url, String json){
         String[] result = new String[2];
         try{

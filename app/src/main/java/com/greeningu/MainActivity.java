@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import com.greeningu.bean.Usuario;
-import com.greeningu.webservice.UsuarioREST;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,6 +19,9 @@ public class MainActivity extends ActionBarActivity {
     public void btnRegistroClick(View v){
         Intent intent = new Intent(this,RegistroActivity.class);
         startActivity(intent);
+    }
+
+    public void btnEntrarClick(View v){
     }
 
 
