@@ -99,16 +99,6 @@ public class MainActivity extends ActionBarActivity {
             }catch(Exception e){
                 e.printStackTrace();
             }
-
-            Gson gson = new Gson();
-
-            MensagemPadrao mp = gson.fromJson(result, MensagemPadrao.class);
-
-            if(mp.getStatus().equals("OK")){
-                //Intent i = new Intent(this,HomeActivity.class);
-                //startActivity(i);
-            }
-
             return result;
         }
 
