@@ -8,7 +8,7 @@ import com.greeningu.bean.UsuarioLogin;
  * Created by Jadson on 03/05/2015.
  */
 public class UsuarioREST {
-    private static final String URL_WS = "http://192.168.0.103:8080/GreeningU/usuario";
+    private static final String URL_WS = "http://192.168.56.1:8080/GreeningU/usuario";
 
     public String inserir(Usuario usuario)throws Exception{
         Gson gson = new Gson();
