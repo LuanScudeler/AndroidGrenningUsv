@@ -14,7 +14,7 @@ import android.view.Window;
 import com.astuetz.PagerSlidingTabStrip;
 
 
-public class HomeActivity extends ActionBarActivity{
+public class HomeActivity extends ActionBarActivity implements android.support.v7.app.ActionBar.TabListener {
 
     android.support.v7.app.ActionBar actionbar;
     ViewPager viewpager;
@@ -34,10 +34,10 @@ public class HomeActivity extends ActionBarActivity{
 
         actionbar = getSupportActionBar();
         actionbar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
-       /* actionbar.addTab(actionbar.newTab().setText("Tab1").setTabListener((android.support.v7.app.ActionBar.TabListener)this));
-        actionbar.addTab(actionbar.newTab().setText("Tab2").setTabListener((android.support.v7.app.ActionBar.TabListener)this));
-        actionbar.addTab(actionbar.newTab().setText("Tab3").setTabListener((android.support.v7.app.ActionBar.TabListener)this));
-        actionbar.addTab(actionbar.newTab().setText("Tab4").setTabListener((android.support.v7.app.ActionBar.TabListener)this));*/
+        actionbar.addTab(actionbar.newTab().setText("Tab1").setTabListener(this));
+        actionbar.addTab(actionbar.newTab().setText("Tab2").setTabListener(this));
+        actionbar.addTab(actionbar.newTab().setText("Tab3").setTabListener(this));
+        actionbar.addTab(actionbar.newTab().setText("Tab4").setTabListener(this));
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(viewpager);
@@ -45,11 +45,12 @@ public class HomeActivity extends ActionBarActivity{
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                actionbar.setSelectedNavigationItem(position);
             }
 
             @Override
@@ -83,4 +84,18 @@ public class HomeActivity extends ActionBarActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onTabSelected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+        viewpager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+    }
+
+    @Override
+    public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+    }
 }
