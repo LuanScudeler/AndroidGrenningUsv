@@ -3,18 +3,23 @@ package com.greeningu.webservice;
 import com.google.gson.Gson;
 import com.greeningu.bean.Usuario;
 import com.greeningu.bean.UsuarioLogin;
+import com.greeningu.util.Constants;
 
 /**
- * Created by Jadson on 03/05/2015.
+ * Created by Jadson in 03/05/2015.
  */
 public class UsuarioREST {
-    private static final String URL_WS = "http://192.168.56.1:8080/GreeningU/usuario";
+
+    // TODO pegar valor da url do arquivo strings.xml
+
+    private static final String URL_WS = "/usuario";
 
     public String inserir(Usuario usuario)throws Exception{
+
         Gson gson = new Gson();
 
         String usuarioJSON = gson.toJson(usuario);
-        String[] resposta = new WebServiceCliente().post(URL_WS + "/inserir", usuarioJSON);
+        String[] resposta = new WebServiceCliente().post(Constants.SERVER_URL + URL_WS + "/inserir", usuarioJSON);
         if (resposta[0].equals("200")) {
             return resposta[1];
         } else {
@@ -27,7 +32,7 @@ public class UsuarioREST {
 
         String login = gson.toJson(usuarioLogin);
 
-        String[]resposta = new WebServiceCliente().post(URL_WS + "/login", login);
+        String[]resposta = new WebServiceCliente().post(Constants.SERVER_URL + URL_WS + "/login", login);
         if(resposta[0].equals("200")){
             return resposta[1];
         }else{

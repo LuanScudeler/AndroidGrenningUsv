@@ -102,6 +102,7 @@
         android:layout_below="@+id/edtRepSenha"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:onClick="btnCadastrarClick"/>
+        android:onClick="btnCadastrarClick"
+        android:textColor="#ff179625" />
 
 </RelativeLayout>

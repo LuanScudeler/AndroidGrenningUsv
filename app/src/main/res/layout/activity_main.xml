@@ -43,7 +43,8 @@
         android:layout_alignLeft="@+id/edtSenha"
         android:layout_alignStart="@+id/edtSenha"
         android:layout_marginTop="50dp"
-        android:onClick="btnEntrarClick"/>
+        android:onClick="btnEntrarClick"
+        android:textColor="#ff179625" />
 
     <Button
         android:layout_width="wrap_content"
@@ -53,5 +54,6 @@
         android:layout_alignTop="@+id/btnEntrar"
         android:layout_alignRight="@+id/edtSenha"
         android:layout_alignEnd="@+id/edtSenha"
-        android:onClick="btnRegistroClick"/>
+        android:onClick="btnRegistroClick"
+        android:textColor="#ff179625" />
 </RelativeLayout>

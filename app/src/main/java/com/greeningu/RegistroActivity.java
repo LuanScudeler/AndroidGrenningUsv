@@ -2,6 +2,7 @@ package com.greeningu;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -71,8 +72,18 @@ public class RegistroActivity extends ActionBarActivity {
             usuario.setLogin(login);
             usuario.setSenha(senha);
 
-            CadastroUsuarioAsync caa = new CadastroUsuarioAsync();
-            caa.execute(usuario);
+            Intent intent = new Intent(this,ListaComunidadesActivity.class);
+            Bundle b = new Bundle();
+
+            String usrJson = new Gson().toJson(usuario);
+
+            b.putString("usuario",usrJson);
+
+            intent.putExtras(b);
+
+            startActivity(intent);
+
+            // TODO limpar campos
         }
     }
 
@@ -98,48 +109,4 @@ public class RegistroActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class CadastroUsuarioAsync extends AsyncTask<Usuario,String,String> {
-        @Override
-        protected String doInBackground(Usuario... params) {
-            publishProgress("Cadastrando...");
-            UsuarioREST urest = new UsuarioREST();
-            String result = "";
-            try{
-
-                for(Usuario usuario : params){
-                    result = urest.inserir(usuario);
-                }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-
-            Gson gson = new Gson();
-
-            MensagemPadrao mp = gson.fromJson(result,MensagemPadrao.class);
-
-            publishProgress(mp.getStatus());
-
-            return result;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progress = new ProgressDialog(RegistroActivity.this);
-            progress.show();
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            super.onProgressUpdate(values);
-            progress.setMessage(values[0]);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            progress.cancel();
-            super.onPostExecute(s);
-            finish();
-        }
-    }
 }

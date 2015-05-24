@@ -10,11 +10,11 @@ public class Comunidade implements Serializable{
 	private static final long serialVersionUID = 6849170179649062128L;
 	private Integer id;
 	private String nome;
-	private int usarioLider;
+	private Integer usarioLider;
 
 	public Comunidade(){}
 
-	public Comunidade(Integer id, String nome, int usarioLider) {
+	public Comunidade(Integer id, String nome, Integer usarioLider) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -37,11 +37,11 @@ public class Comunidade implements Serializable{
 		this.nome = nome;
 	}
 
-	public int getUsarioLider() {
+	public Integer getUsarioLider() {
 		return usarioLider;
 	}
 
-	public void setUsarioLider(int usarioLider) {
+	public void setUsarioLider(Integer usarioLider) {
 		this.usarioLider = usarioLider;
 	}
 
@@ -51,7 +51,8 @@ public class Comunidade implements Serializable{
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + usarioLider;
+		result = prime * result
+				+ ((usarioLider == null) ? 0 : usarioLider.hashCode());
 		return result;
 	}
 
@@ -74,8 +75,14 @@ public class Comunidade implements Serializable{
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (usarioLider != other.usarioLider)
+		if (usarioLider == null) {
+			if (other.usarioLider != null)
+				return false;
+		} else if (!usarioLider.equals(other.usarioLider))
 			return false;
 		return true;
 	}
+	
+	
+
 }

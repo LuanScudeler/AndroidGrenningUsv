@@ -1,4 +1,7 @@
 <resources>
+    <string name="url_server">http://192.168.0.105:8080/GreeningU</string>
+
+
     <string name="app_name">GreeningU</string>
     <string name="action_settings">Settings</string>
 
@@ -18,4 +21,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_lista_comunidades">ListaComunidadesActivity</string>
+    <string name="title_activity_detalhes_comunidade">DetalhesComunidadeActivity</string>
+
+    <!-- Detalhes comunidade -->
+    <string name="participar">Participar</string>
 </resources>

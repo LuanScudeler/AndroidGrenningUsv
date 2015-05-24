@@ -11,6 +11,7 @@ public class Postagem implements Serializable{
 	 */
 	private static final long serialVersionUID = -1303445147454201116L;
 	private Integer id;
+	private Integer idUsuario;
 	private String titulo;
 	private String descricao;
 	private byte[] imagem;
@@ -18,10 +19,11 @@ public class Postagem implements Serializable{
 	
 	public Postagem(){}
 
-	public Postagem(Integer id, String titulo, String descricao, byte[] imagem,
-			Date data) {
+	public Postagem(Integer id, Integer idUsuario, String titulo,
+			String descricao, byte[] imagem, Date data) {
 		super();
 		this.id = id;
+		this.idUsuario = idUsuario;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.imagem = imagem;
@@ -34,6 +36,14 @@ public class Postagem implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getTitulo() {
@@ -76,6 +86,8 @@ public class Postagem implements Serializable{
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((idUsuario == null) ? 0 : idUsuario.hashCode());
 		result = prime * result + Arrays.hashCode(imagem);
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
@@ -105,6 +117,11 @@ public class Postagem implements Serializable{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (idUsuario == null) {
+			if (other.idUsuario != null)
+				return false;
+		} else if (!idUsuario.equals(other.idUsuario))
+			return false;
 		if (!Arrays.equals(imagem, other.imagem))
 			return false;
 		if (titulo == null) {
@@ -114,4 +131,6 @@ public class Postagem implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
 }

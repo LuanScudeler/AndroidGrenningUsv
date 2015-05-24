@@ -41,6 +41,14 @@
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" >
         </activity>
+        <activity
+            android:name=".ListaComunidadesActivity"
+            android:label="@string/title_activity_lista_comunidades" >
+        </activity>
+        <activity
+            android:name=".DetalhesComunidadeActivity"
+            android:label="@string/title_activity_detalhes_comunidade" >
+        </activity>
     </application>
 
 </manifest>

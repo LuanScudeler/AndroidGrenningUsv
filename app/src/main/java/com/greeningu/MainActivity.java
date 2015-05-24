@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
             MensagemPadrao msg = gson.fromJson(s, MensagemPadrao.class);
 
             if(msg.getStatus().equals("OK")){
-                String usuarioJSON = msg.getInfo();
+                //String usuarioJSON = msg.getInfo();
 
                 //UsuarioLogin ul = gson.fromJson(usuarioJSON, UsuarioLogin.class);
 
