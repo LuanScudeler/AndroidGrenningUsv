@@ -1,4 +1,6 @@
-package com.greeningu.webservice;
+package com.greeningu.wsclient;
+
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.greeningu.bean.Usuario;
@@ -14,6 +16,8 @@ public class UsuarioREST {
 
     private static final String URL_WS = "/usuario";
 
+    private static final String ERRO = "Erro: ";
+
     public String inserir(Usuario usuario)throws Exception{
 
         Gson gson = new Gson();
@@ -23,7 +27,8 @@ public class UsuarioREST {
         if (resposta[0].equals("200")) {
             return resposta[1];
         } else {
-            throw new Exception(resposta[1]);
+            Log.e(ERRO,resposta[1]);
+            return resposta[1];
         }
     }
 
@@ -36,7 +41,8 @@ public class UsuarioREST {
         if(resposta[0].equals("200")){
             return resposta[1];
         }else{
-            throw new Exception(resposta[1]);
+            Log.e(ERRO,resposta[1]);
+            return resposta[1];
         }
     }
 

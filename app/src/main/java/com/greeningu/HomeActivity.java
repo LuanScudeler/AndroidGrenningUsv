@@ -10,8 +10,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.google.gson.Gson;
+import com.greeningu.bean.Comunidade;
+import com.greeningu.bean.Usuario;
 
 
 public class HomeActivity extends ActionBarActivity implements android.support.v7.app.ActionBar.TabListener {
@@ -19,6 +23,8 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
     android.support.v7.app.ActionBar actionbar;
     ViewPager viewpager;
     FragmentPagerAdapter ft;
+    String usuarioJson;
+    Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,11 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        if(getIntent().getExtras() != null){
+            usuarioJson = getIntent().getExtras().getString("usuario");
+            usuario = new Gson().fromJson(usuarioJson,Usuario.class);
+        }
+
 
         viewpager = (ViewPager) findViewById(R.id.pager);
         viewpager.setAdapter(new FragmentPageAdapter(getSupportFragmentManager()));
@@ -34,10 +45,10 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
 
         actionbar = getSupportActionBar();
         actionbar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
-        actionbar.addTab(actionbar.newTab().setText("Tab1").setTabListener(this));
-        actionbar.addTab(actionbar.newTab().setText("Tab2").setTabListener(this));
-        actionbar.addTab(actionbar.newTab().setText("Tab3").setTabListener(this));
-        actionbar.addTab(actionbar.newTab().setText("Tab4").setTabListener(this));
+        actionbar.addTab(actionbar.newTab().setText("Criar postagem").setTabListener(this));
+        actionbar.addTab(actionbar.newTab().setText("Novas Postagens").setTabListener(this));
+        /*actionbar.addTab(actionbar.newTab().setText("Comunidade").setTabListener(this));
+        actionbar.addTab(actionbar.newTab().setText("Usuário").setTabListener(this));*/
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(viewpager);
@@ -45,7 +56,11 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                if(position == 0){
+                    Toast.makeText(HomeActivity.this,"0",Toast.LENGTH_LONG).show();
+                } else if(position == 1){
+                    Toast.makeText(HomeActivity.this,"1",Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override

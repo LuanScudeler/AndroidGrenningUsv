@@ -1,4 +1,4 @@
-package com.greeningu.webservice;
+package com.greeningu.wsclient;
 
 import android.util.Log;
 
@@ -18,6 +18,9 @@ import java.net.URI;
  */
 public class WebServiceCliente {
 
+    private static final String FALHA_AO_ACESSAR_SERVICO = " Falha ao acessar serviço. ";
+    private static final String RESP_REQ = " Resposta da requisição: ";
+
     public final String[] get(String url){
 
         String[] result = new String[2];
@@ -33,12 +36,12 @@ public class WebServiceCliente {
                 InputStream inputStream = httpEntity.getContent();
                 result[1] = toString(inputStream);
                 inputStream.close();
-                Log.i("get", "Result from post JsonPost : " + result[0] + " : " + result[1]);
+                Log.i("get", RESP_REQ + result[0] + " : " + result[1]);
             }
         }catch(Exception e){
-            Log.e("NGVL", "Falha ao acessar Web service", e);
+            Log.e("NGVL", FALHA_AO_ACESSAR_SERVICO, e);
             result[0] = "0";
-            result[1] = "Falha de rede!";
+            result[1] = FALHA_AO_ACESSAR_SERVICO;
         }
         return result;
     }
@@ -64,14 +67,14 @@ public class WebServiceCliente {
 
                 inputStream.close();
 
-                Log.d("post","Result from post JsonPost: " + result[0] + " : " + result[1]);
+                Log.d("post",RESP_REQ + result[0] + " : " + result[1]);
             }
 
 
         }catch (Exception e){
-            Log.e("NGVL","Falha ao acessar Web Service ", e);
+            Log.e("NGVL",FALHA_AO_ACESSAR_SERVICO, e);
             result[0] = "0";
-            result[1] = "Falha na rede!";
+            result[1] = FALHA_AO_ACESSAR_SERVICO;
 
         }
         return result;

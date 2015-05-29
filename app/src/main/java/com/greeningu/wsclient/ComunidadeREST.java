@@ -1,4 +1,6 @@
-package com.greeningu.webservice;
+package com.greeningu.wsclient;
+
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,6 +18,8 @@ public class ComunidadeREST {
 
     private static final String URL_WS = "/comunidade";
 
+    private static final String ERRO = "Erro: ";
+
     public ArrayList<Comunidade> listarComunidades(){
 
         ArrayList<Comunidade> lista = new ArrayList<Comunidade>();
@@ -27,11 +31,8 @@ public class ComunidadeREST {
             lista = new Gson().fromJson(resposta[1],listType);
 
         }else{
-            try {
-                throw new Exception(resposta[1]);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Log.e(ERRO, resposta[1]);
+            return null;
         }
 
         return lista;
@@ -46,11 +47,8 @@ public class ComunidadeREST {
             qtd = Integer.parseInt(resposta[1]);
 
         }else{
-            try {
-                throw new Exception(resposta[1]);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Log.e(ERRO,resposta[1]);
+            return null;
         }
 
         return qtd;
@@ -65,11 +63,8 @@ public class ComunidadeREST {
             pontuacao = Integer.parseInt(resposta[1]);
 
         }else{
-            try {
-                throw new Exception(resposta[1]);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Log.e(ERRO,resposta[1]);
+            return null;
         }
 
         return pontuacao;
@@ -84,11 +79,8 @@ public class ComunidadeREST {
             nomeLider = resposta[1];
 
         }else{
-            try {
-                throw new Exception(resposta[1]);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Log.e(ERRO,resposta[1]);
+            return resposta[1];
         }
 
         return nomeLider;

@@ -16,14 +16,20 @@
     <string-array name="sexo">
         <item>M</item>
         <item>F</item>
-
     </string-array>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_activity_lista_comunidades">ListaComunidadesActivity</string>
-    <string name="title_activity_detalhes_comunidade">DetalhesComunidadeActivity</string>
+    <string name="title_activity_home">GreeningU</string>
+    <string name="title_activity_lista_comunidades">Comunidades disponíveis</string>
+    <string name="title_activity_detalhes_comunidade">Detalhes da comunidade</string>
 
     <!-- Detalhes comunidade -->
     <string name="participar">Participar</string>
+
+    <!-- Home -->
+    <string name="nova_postagem">Nova Postagem</string>
+    <string name="titulo_postagem">Título da postagem</string>
+    <string name="descricao_postagem">Descrição</string>
+    <string name="imagem_postagem">Imagem</string>
+
 </resources>

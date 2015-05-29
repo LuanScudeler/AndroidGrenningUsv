@@ -15,9 +15,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.greeningu.bean.MensagemPadrao;
 import com.greeningu.bean.UsuarioLogin;
-import com.greeningu.webservice.UsuarioREST;
-
-import java.util.concurrent.Executor;
+import com.greeningu.wsclient.ServerTest;
+import com.greeningu.wsclient.UsuarioREST;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -33,19 +32,22 @@ public class MainActivity extends ActionBarActivity {
 
         edtUsuario = (EditText)findViewById(R.id.edtUsuario);
         edtSenha = (EditText)findViewById(R.id.edtSenha);
+        edtUsuario.setText("");
+        edtSenha.setText("");
     }
 
     public void btnRegistroClick(View v){
-        Intent intent = new Intent(this,RegistroActivity.class);
-        startActivity(intent);
+        ServerTestAsync sta = new ServerTestAsync();
+        sta.execute();
     }
 
     public void btnEntrarClick(View v){
-
-        if(edtUsuario.getText().equals("")){
-            Toast.makeText(this, "Favor inserir um usuário!", Toast.LENGTH_SHORT).show();
-        }else if(edtSenha.getText().equals("")){
-            Toast.makeText(this, "Favor inserir a senha!", Toast.LENGTH_SHORT).show();
+        if(edtUsuario.getText().toString().equals("") || edtSenha.getText().toString().equals("")){
+            Toast.makeText(this, "Favor inserir usuário e senha!", Toast.LENGTH_SHORT).show();
+            if(edtUsuario.getText().toString().equals(""))
+                edtUsuario.requestFocus();
+            else if(edtSenha.getText().toString().equals(""))
+                edtSenha.requestFocus();
         }else{
             UsuarioLogin ul = new UsuarioLogin();
 
@@ -93,11 +95,10 @@ public class MainActivity extends ActionBarActivity {
             String result = "";
 
             try{
-                for (UsuarioLogin ul : params){
-                    result = urest.login(ul);
-                }
+                result = urest.login(params[0]);
             }catch(Exception e){
                 e.printStackTrace();
+                return result;
             }
             return result;
         }
@@ -119,24 +120,52 @@ public class MainActivity extends ActionBarActivity {
         protected void onPostExecute(String s) {
             progress.cancel();
             super.onPostExecute(s);
-            //Resposta do servidor
-            Gson gson = new Gson();
-            MensagemPadrao msg = gson.fromJson(s, MensagemPadrao.class);
 
-            if(msg.getStatus().equals("OK")){
-                //String usuarioJSON = msg.getInfo();
-
-                //UsuarioLogin ul = gson.fromJson(usuarioJSON, UsuarioLogin.class);
-
-                //TODO instanciar novo objeto UsuarioLogin e enviar para HomeActivity
-
-                Log.i("STATUS.INFO",msg.getInfo());
-
-                Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(i);
-            }else{
-                Toast.makeText(MainActivity.this, "Usuário e/ou senha inválidos", Toast.LENGTH_SHORT).show();
+            if(s.contains("Falha")) {
+                Toast.makeText(MainActivity.this, "Servidor Offline", Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                MensagemPadrao msg = gson.fromJson(s, MensagemPadrao.class);
+                if(msg.getStatus().equals("OK")){
+                    Log.i("STATUS.INFO",msg.getInfo());
+                    Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("usuario",msg.getInfo());
+                    i.putExtras(b);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(MainActivity.this, "Usuário e/ou senha inválidos", Toast.LENGTH_SHORT).show();
+                }
             }
+        }
+    }
+
+    public class ServerTestAsync extends AsyncTask<Void, String, String>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress = new ProgressDialog(MainActivity.this);
+            progress.setMessage("Verificando conexão com o servidor...");
+            progress.show();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(s.equals("ONLINE")){
+                Intent intent = new Intent(MainActivity.this,RegistroActivity.class);
+                startActivity(intent);
+                progress.cancel();
+
+            } else{
+                progress.cancel();
+                Toast.makeText(MainActivity.this,s,Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            return ServerTest.serverTest();
         }
     }
 }

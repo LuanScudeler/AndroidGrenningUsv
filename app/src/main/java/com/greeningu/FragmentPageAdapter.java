@@ -14,7 +14,7 @@ import com.greeningu.fragments.newPosts;
  */
 public class FragmentPageAdapter extends FragmentPagerAdapter{
 
-    private String[] titles = {"Tab1", "Tab2", "Tab3", "Tab4"};
+    private String[] titles = {"Tab1", "Tab2", /*"Tab3", "Tab4"*/};
 
     public FragmentPageAdapter(FragmentManager fm) {
         super(fm);
@@ -27,10 +27,10 @@ public class FragmentPageAdapter extends FragmentPagerAdapter{
                 return new createPosts();
             case 1:
                 return new newPosts();
-            case 2:
+            /*case 2:
                 return new infoCommunity();
             case 3:
-                return new infoUser();
+                return new infoUser();*/
             default:
                 break;
         }

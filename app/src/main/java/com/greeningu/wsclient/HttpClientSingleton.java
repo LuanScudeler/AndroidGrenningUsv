@@ -1,4 +1,4 @@
-package com.greeningu.webservice;
+package com.greeningu.wsclient;
 
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;

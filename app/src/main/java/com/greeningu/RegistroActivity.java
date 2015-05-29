@@ -3,7 +3,6 @@ package com.greeningu;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,9 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.greeningu.bean.MensagemPadrao;
 import com.greeningu.bean.Usuario;
-import com.greeningu.webservice.UsuarioREST;
 
 
 public class RegistroActivity extends ActionBarActivity {
@@ -43,6 +40,8 @@ public class RegistroActivity extends ActionBarActivity {
         edtSenha = (EditText)findViewById(R.id.edtSenha);
         edtRepSenha = (EditText)findViewById(R.id.edtRepSenha);
 
+        limparCampos();
+
         spnSexo = (Spinner)findViewById(R.id.spnSexo);
         ArrayAdapter<CharSequence> arraySexo = ArrayAdapter.createFromResource(
                 this, R.array.sexo, android.R.layout.simple_spinner_dropdown_item
@@ -63,7 +62,9 @@ public class RegistroActivity extends ActionBarActivity {
 
         if(!senha.equals(repSenha)){
             Toast.makeText(this,"Senhas não conferem!", Toast.LENGTH_SHORT).show();
-        } else{
+        } else if(!verificarPreenchimentoCampos()) {
+            Toast.makeText(this,"Todos os campos são obrigatórios!",Toast.LENGTH_LONG).show();
+        }else{
             Usuario usuario = new Usuario();
             usuario.setNome(nome);
             usuario.setSobrenome(sobrenome);
@@ -81,10 +82,67 @@ public class RegistroActivity extends ActionBarActivity {
 
             intent.putExtras(b);
 
-            startActivity(intent);
+            limparCampos();
 
-            // TODO limpar campos
+            startActivity(intent);
         }
+    }
+
+    public void limparCampos(){
+        edtNome.setText("");
+        edtSobrenome.setText("");
+        edtEmail.setText("");
+        edtLogin.setText("");
+        edtSenha.setText("");
+        edtRepSenha.setText("");
+    }
+
+    public boolean verificarPreenchimentoCampos(){
+        boolean status;
+
+        if(edtNome.getText().toString().equals("")){
+            edtNome.requestFocus();
+            return false;
+        } else {
+            status = true;
+        }
+
+        if(edtSobrenome.getText().toString().equals("")){
+            edtSobrenome.requestFocus();
+            return false;
+        } else {
+            status = true;
+        }
+
+        if(edtEmail.getText().toString().equals("")){
+            edtEmail.requestFocus();
+            return false;
+        } else {
+            status = true;
+        }
+
+        if(edtLogin.getText().toString().equals("")){
+            edtLogin.requestFocus();
+            return false;
+        } else {
+            status = true;
+        }
+
+        if(edtSenha.getText().toString().equals("")){
+            edtSenha.requestFocus();
+            return false;
+        } else {
+            status = true;
+        }
+
+        if(edtRepSenha.getText().toString().equals("")){
+            edtRepSenha.requestFocus();
+            return false;
+        } else {
+            status = true;
+        }
+
+        return status;
     }
 
     @Override

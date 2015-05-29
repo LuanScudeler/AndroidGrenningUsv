@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#58FA82">
+    android:background="#ffffffff">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="CREATE POST SCREEN"
-        android:id="@+id/textView"
+        android:id="@+id/edtTituloPostagem"
+        android:hint="@string/titulo_postagem"
+        android:layout_marginTop="25dp"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/edtDescricao"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/edtTituloPostagem"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp" />
+        android:hint="@string/descricao_postagem" />
+
+    <Gallery
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/logo" />
+
 </RelativeLayout>
