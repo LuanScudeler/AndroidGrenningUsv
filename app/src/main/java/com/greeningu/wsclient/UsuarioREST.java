@@ -46,6 +46,21 @@ public class UsuarioREST {
         }
     }
 
+    public Integer getQtdePosts(Integer id){
+        Integer qtde = null;
+
+        String[]resposta = new WebServiceCliente().get(Constants.SERVER_URL + URL_WS + "/qtdePosts/" + String.valueOf(id));
+        if(resposta[0].equals("200")){
+            qtde = Integer.parseInt(resposta[1]);
+        }
+        else{
+            Log.e(ERRO,resposta[1]);
+            return null;
+        }
+
+        return qtde;
+    }
+
 
 }
 

@@ -92,6 +92,9 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
         switch (id){
             case R.id.menu_infouser:
                 Intent intent = new Intent(this, DetalhesUsuarioActivity.class);
+                Bundle b = new Bundle();
+                b.putString("usuario", usuarioJson);
+                intent.putExtras(b);
                 startActivity(intent);
                 return true;
             case R.id.menu_infocommunity:

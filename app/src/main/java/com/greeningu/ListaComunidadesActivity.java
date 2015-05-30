@@ -111,7 +111,6 @@ public class ListaComunidadesActivity extends ListActivity {
             ArrayList<Comunidade> lista = rest.listarComunidades();
 
             return lista;
-
         }
 
         @Override
