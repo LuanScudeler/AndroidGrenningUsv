@@ -30,6 +30,7 @@
     <string name="nova_postagem">Nova Postagem</string>
     <string name="titulo_postagem">Título da postagem</string>
     <string name="descricao_postagem">Descrição</string>
-    <string name="imagem_postagem">Imagem</string>
+    <string name="selecionar_imagem">Selecionar Imagem...</string>
+    <string name="title_activity_teste_img">TesteImgActivity</string>
 
 </resources>

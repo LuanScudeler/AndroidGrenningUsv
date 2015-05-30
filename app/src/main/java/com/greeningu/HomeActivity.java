@@ -57,9 +57,10 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if(position == 0){
-                    Toast.makeText(HomeActivity.this,"0",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(HomeActivity.this,"0",Toast.LENGTH_LONG).show();
+
                 } else if(position == 1){
-                    Toast.makeText(HomeActivity.this,"1",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(HomeActivity.this,"1",Toast.LENGTH_LONG).show();
                 }
             }
 

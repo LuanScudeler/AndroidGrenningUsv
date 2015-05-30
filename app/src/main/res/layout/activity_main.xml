@@ -56,4 +56,5 @@
         android:layout_alignEnd="@+id/edtSenha"
         android:onClick="btnRegistroClick"
         android:textColor="#ff179625" />
+
 </RelativeLayout>

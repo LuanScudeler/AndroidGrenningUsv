@@ -14,13 +14,13 @@ public class Postagem implements Serializable{
 	private Integer idUsuario;
 	private String titulo;
 	private String descricao;
-	private byte[] imagem;
+	private String imagem;
 	private Date data;
 	
 	public Postagem(){}
 
 	public Postagem(Integer id, Integer idUsuario, String titulo,
-			String descricao, byte[] imagem, Date data) {
+			String descricao, String imagem, Date data) {
 		super();
 		this.id = id;
 		this.idUsuario = idUsuario;
@@ -62,11 +62,11 @@ public class Postagem implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public byte[] getImagem() {
+	public String getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(byte[] imagem) {
+	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
 
@@ -88,7 +88,7 @@ public class Postagem implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((idUsuario == null) ? 0 : idUsuario.hashCode());
-		result = prime * result + Arrays.hashCode(imagem);
+		result = prime * result + ((imagem == null) ? 0 : imagem.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
@@ -122,7 +122,10 @@ public class Postagem implements Serializable{
 				return false;
 		} else if (!idUsuario.equals(other.idUsuario))
 			return false;
-		if (!Arrays.equals(imagem, other.imagem))
+		if (imagem == null) {
+			if (other.imagem != null)
+				return false;
+		} else if (!imagem.equals(other.imagem))
 			return false;
 		if (titulo == null) {
 			if (other.titulo != null)
@@ -131,6 +134,6 @@ public class Postagem implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 	
 }
