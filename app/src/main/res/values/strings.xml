@@ -22,6 +22,7 @@
     <string name="title_activity_home">GreeningU</string>
     <string name="title_activity_lista_comunidades">Comunidades disponíveis</string>
     <string name="title_activity_detalhes_comunidade">Detalhes da comunidade</string>
+    <string name="title_activity_detalhes_usuario">Detalhes do usuario</string>
 
     <!-- Detalhes comunidade -->
     <string name="participar">Participar</string>
@@ -33,4 +34,7 @@
     <string name="selecionar_imagem">Selecionar Imagem...</string>
     <string name="title_activity_teste_img">TesteImgActivity</string>
 
+    <!-- Menus-->
+    <string name="menu_user">Info User</string>
+    <string name="menu_community">Info Community</string>
 </resources>

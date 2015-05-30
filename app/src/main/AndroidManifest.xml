@@ -43,6 +43,10 @@
             android:name=".DetalhesComunidadeActivity"
             android:label="@string/title_activity_detalhes_comunidade" >
         </activity>
+        <activity
+            android:name=".DetalhesUsuarioActivity"
+            android:label="@string/title_activity_detalhes_usuario" >
+        </activity>
     </application>
 
 </manifest>

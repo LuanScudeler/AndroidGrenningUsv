@@ -5,8 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.greeningu.fragments.createPosts;
-import com.greeningu.fragments.infoCommunity;
-import com.greeningu.fragments.infoUser;
 import com.greeningu.fragments.newPosts;
 
 /**

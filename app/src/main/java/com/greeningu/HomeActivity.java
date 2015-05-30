@@ -1,8 +1,6 @@
 package com.greeningu;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
-import android.support.v4.app.FragmentActivity;
+import android.content.Intent;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -10,12 +8,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
-import com.greeningu.bean.Comunidade;
 import com.greeningu.bean.Usuario;
+
 
 
 public class HomeActivity extends ActionBarActivity implements android.support.v7.app.ActionBar.TabListener {
@@ -92,6 +89,16 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        switch (id){
+            case R.id.menu_infouser:
+                Intent intent = new Intent(this, DetalhesUsuarioActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_infocommunity:
+                Intent intent2 = new Intent(this, DetalhesComunidadeActivity.class);
+                startActivity(intent2);
+                return true;
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;

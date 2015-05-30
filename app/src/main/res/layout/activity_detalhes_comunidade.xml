@@ -25,23 +25,24 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Lider:"
         android:id="@+id/txtLiderComunidade"
-        android:layout_below="@+id/txtNomeComunidade"
-        android:layout_centerHorizontal="true"
         android:textColor="#ff179625"
-        android:layout_marginTop="50dp"
-        android:textSize="25dp" />
+        android:layout_marginTop="51dp"
+        android:textSize="20dp"
+        android:layout_below="@+id/txtNomeComunidade"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Quantidade de membros:"
+        android:text="Qtde. de membros:"
         android:id="@+id/txtQtdMembros"
-        android:layout_below="@+id/txtLiderComunidade"
-        android:layout_centerHorizontal="true"
         android:textColor="#ff179625"
-        android:textSize="25dp"
-        android:layout_marginTop="20dp" />
+        android:textSize="20dp"
+        android:layout_below="@+id/txtLiderComunidade"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,20 +50,19 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Pontuação total:"
         android:id="@+id/txtPontuacaoTotal"
-        android:layout_below="@+id/txtQtdMembros"
-        android:layout_centerHorizontal="true"
         android:textColor="#ff179625"
-        android:textSize="25dp"
-        android:layout_marginTop="20dp" />
+        android:textSize="20dp"
+        android:layout_below="@+id/txtQtdMembros"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/participar"
         android:id="@+id/btnParticipar"
-        android:layout_below="@+id/txtPontuacaoTotal"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
         android:textColor="#ff179625"
-        android:onClick="btnParticiparClick"/>
+        android:onClick="btnParticiparClick"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
