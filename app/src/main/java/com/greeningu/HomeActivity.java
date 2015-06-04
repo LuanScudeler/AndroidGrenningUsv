@@ -1,27 +1,62 @@
 package com.greeningu;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
+import com.greeningu.bean.MensagemPadrao;
+import com.greeningu.bean.Postagem;
 import com.greeningu.bean.Usuario;
+import com.greeningu.util.CodificadorBase64;
+import com.greeningu.wsclient.PostagemREST;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Date;
 
 
 public class HomeActivity extends ActionBarActivity implements android.support.v7.app.ActionBar.TabListener {
 
-    android.support.v7.app.ActionBar actionbar;
-    ViewPager viewpager;
-    FragmentPagerAdapter ft;
-    String usuarioJson;
-    Usuario usuario;
+    private android.support.v7.app.ActionBar actionbar;
+    private ViewPager viewpager;
+    private FragmentPagerAdapter ft;
+
+    // ########## createPosts ##########
+    private static String imgPath;
+    private Button btnSelecionarImagem;
+    private Button btnEnviar;
+    private EditText edtTituloPostagem;
+    private EditText edtDescricaoPostagem;
+    private ImageView ivImagemPostagem;
+    public static final int RESULT_LOAD_IMG = 1;
+
+    // ########## Global resources ##########
+    private String usuarioJson;
+    private Usuario usuario;
+    private ProgressDialog dialog;
+
+    public static final String FALHA_AC_SERV = "Falha ao acessar o serviço";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +70,6 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
             usuario = new Gson().fromJson(usuarioJson,Usuario.class);
         }
 
-
         viewpager = (ViewPager) findViewById(R.id.pager);
         viewpager.setAdapter(new FragmentPageAdapter(getSupportFragmentManager()));
 
@@ -44,8 +78,6 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
         actionbar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
         actionbar.addTab(actionbar.newTab().setText("Criar postagem").setTabListener(this));
         actionbar.addTab(actionbar.newTab().setText("Novas Postagens").setTabListener(this));
-        /*actionbar.addTab(actionbar.newTab().setText("Comunidade").setTabListener(this));
-        actionbar.addTab(actionbar.newTab().setText("Usuário").setTabListener(this));*/
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(viewpager);
@@ -54,10 +86,9 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if(position == 0){
-                    //Toast.makeText(HomeActivity.this,"0",Toast.LENGTH_LONG).show();
-
+                   // TODO
                 } else if(position == 1){
-                    //Toast.makeText(HomeActivity.this,"1",Toast.LENGTH_LONG).show();
+                    // TODO
                 }
             }
 
@@ -71,9 +102,14 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
 
             }
         });
+
+        // ########## createPosts ##########
+
+        btnSelecionarImagem = (Button) findViewById(R.id.btnSelecionarImagem);
+        edtTituloPostagem = (EditText) findViewById(R.id.edtTituloPostagem);
+        edtDescricaoPostagem = (EditText) findViewById(R.id.edtDescricaoPostagem);
+        btnEnviar = (Button) findViewById(R.id.btnEnviar);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,8 +134,7 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
                 startActivity(intent);
                 return true;
             case R.id.menu_infocommunity:
-                Intent intent2 = new Intent(this, DetalhesComunidadeActivity.class);
-                startActivity(intent2);
+                // TODO nova tela
                 return true;
         }
         //noinspection SimplifiableIfStatement
@@ -123,5 +158,144 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
     @Override
     public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
 
+    }
+
+    // ########## createPosts ##########
+
+    public void btnSelecionarImagemClick(View v){
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+
+            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
+                    && null != data) {
+
+
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                Cursor cursor = getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String imgDecodableString = cursor.getString(columnIndex);
+                cursor.close();
+                ivImagemPostagem = (ImageView) findViewById(R.id.ivImagemPostagem);
+
+                imgPath = imgDecodableString;
+
+                ivImagemPostagem.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+
+            } else {
+                Toast.makeText(this, "Você não escolheu uma imagem.",Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Falha", Toast.LENGTH_LONG).show();
+            Log.e("Erro: ", e.getMessage());
+        }
+
+
+    }
+
+
+    public void btnEnviarClick(View v){
+
+        if(edtTituloPostagem.getText().toString().equals("")){
+            Toast.makeText(HomeActivity.this,"Insira um título!",Toast.LENGTH_SHORT).show();
+        } else if(edtDescricaoPostagem.getText().toString().equals("")){
+            Toast.makeText(HomeActivity.this,"Insira uma descrição!",Toast.LENGTH_SHORT).show();
+        } else if(imgPath.equals(null) || imgPath.equals("")){
+            Toast.makeText(HomeActivity.this,"Selecione uma imagem!",Toast.LENGTH_SHORT).show();
+        } else {
+
+            try {
+                File file = new File(imgPath);
+                FileInputStream fis = new FileInputStream(file);
+
+                byte[] b = new byte[(int) file.length()];
+
+                fis.read(b);
+
+                String imgStr = CodificadorBase64.codificarParaString(b);
+
+                Postagem postagem = new Postagem();
+
+                edtTituloPostagem = (EditText) findViewById(R.id.edtTituloPostagem);
+                edtDescricaoPostagem = (EditText) findViewById(R.id.edtDescricaoPostagem);
+
+                postagem.setIdUsuario(usuario.getId());
+                postagem.setTitulo(edtTituloPostagem.getText().toString());
+                postagem.setDescricao(edtDescricaoPostagem.getText().toString());
+                postagem.setData(new Date());
+                postagem.setImagem(imgStr);
+
+                InserirPostagemAsync ipa = new InserirPostagemAsync();
+
+                ipa.execute(postagem);
+
+
+            } catch (java.io.IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // ########## Asysnc extended classes ##########
+
+    public class InserirPostagemAsync extends AsyncTask<Postagem, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(HomeActivity.this);
+            dialog.setMessage("Salvando postagem...");
+            dialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Postagem... params) {
+
+            PostagemREST prest = new PostagemREST();
+
+            String result = "";
+
+            try{
+                result = prest.inserir(params[0]);
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            dialog.cancel();
+            super.onPostExecute(s);
+
+            if(s.contains("Falha")) {
+                Toast.makeText(HomeActivity.this, FALHA_AC_SERV, Toast.LENGTH_SHORT).show();
+            } else {
+                Gson gson = new Gson();
+                MensagemPadrao msg = gson.fromJson(s, MensagemPadrao.class);
+                if(msg.getStatus().equals("OK")){
+                    Log.i("STATUS.INFO",msg.getInfo());
+                    Toast.makeText(HomeActivity.this,msg.getInfo(),Toast.LENGTH_SHORT).show();
+                }
+
+                edtTituloPostagem.setText("");
+                edtDescricaoPostagem.setText("");
+                ivImagemPostagem.setImageBitmap(null);
+
+            }
+        }
     }
 }

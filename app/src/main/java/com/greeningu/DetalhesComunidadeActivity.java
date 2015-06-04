@@ -39,7 +39,6 @@ public class DetalhesComunidadeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         usuarioJson = "";
         usuario = null;
-        comunidadeJson = "";
         comunidade = null;
 
         super.onCreate(savedInstanceState);
@@ -53,17 +52,15 @@ public class DetalhesComunidadeActivity extends ActionBarActivity {
 
         if(getIntent().getExtras() != null){
             usuarioJson = getIntent().getExtras().getString("usuario");
-            comunidadeJson = getIntent().getExtras().getString("comunidade");
-
             usuario = new Gson().fromJson(usuarioJson,Usuario.class);
-            comunidade = new Gson().fromJson(comunidadeJson,Comunidade.class);
+            comunidadeJson = getIntent().getExtras().getString("comunidade");
+            comunidade = new Gson().fromJson(comunidadeJson, Comunidade.class);
         }
 
         DetalhesComunidadeAsysnc dca = new DetalhesComunidadeAsysnc();
 
-        dca.execute(new Integer(Integer.valueOf(comunidade.getId())));
+        dca.execute(comunidade.getId());
 
-        // TODO terminar
 
     }
 

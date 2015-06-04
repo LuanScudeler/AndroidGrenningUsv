@@ -3,34 +3,73 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="#ffffffff">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/edtTituloPostagem"
-        android:hint="@string/titulo_postagem"
-        android:layout_marginTop="25dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/edtDescricao"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/edtTituloPostagem"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/descricao_postagem" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/selecionar_imagem"
-        android:id="@+id/btnSelecionarImagem"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/edtDescricao"
-        android:layout_centerHorizontal="true"
-        android:onClick="btnSelecionarImagemClick"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/edtTituloPostagem"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="49dp"
+                android:hint="@string/titulo_postagem" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/edtDescricaoPostagem"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/edtTituloPostagem"
+                android:layout_alignLeft="@+id/edtTituloPostagem"
+                android:layout_alignStart="@+id/edtTituloPostagem"
+                android:hint="@string/descricao_postagem" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/selecionar_imagem"
+                android:id="@+id/btnSelecionarImagem"
+                android:layout_below="@+id/edtDescricaoPostagem"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:onClick="btnSelecionarImagemClick"/>
+
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:id="@+id/ivImagemPostagem"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/btnSelecionarImagem"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enviar"
+                android:id="@+id/btnEnviar"
+                android:layout_below="@+id/ivImagemPostagem"
+                android:layout_centerHorizontal="true"
+                android:onClick="btnEnviarClick"/>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
 
 </RelativeLayout>

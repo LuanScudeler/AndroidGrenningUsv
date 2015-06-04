@@ -11,6 +11,8 @@ public class MensagemPadrao implements Serializable{
 	private String info;
 	
 	public MensagemPadrao(){}
+	
+	
 
 	public MensagemPadrao(String status, String info) {
 		super();

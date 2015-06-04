@@ -9,8 +9,8 @@ import org.apache.http.params.HttpParams;
  * Created by Jadson on 03/05/2015.
  */
 public class HttpClientSingleton {
-    private static final int JSON_CONNECTION_TIMEOUT = 10000;
-    private static final int JSON_SOCKET_TIMEOUT = 10000;
+    private static final int JSON_CONNECTION_TIMEOUT = 15000;
+    private static final int JSON_SOCKET_TIMEOUT = 15000;
     private static HttpClientSingleton instance;
     private HttpParams httpParameters;
     private DefaultHttpClient httpclient;

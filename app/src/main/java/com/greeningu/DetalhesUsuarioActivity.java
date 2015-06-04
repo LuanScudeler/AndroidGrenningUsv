@@ -59,7 +59,7 @@ public class DetalhesUsuarioActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             progress = new ProgressDialog(DetalhesUsuarioActivity.this);
-            progress.setMessage("Buscando informações do usuário...");
+            progress.setMessage("Buscando informaÃ§Ãµees do usuÃ¡rio...");
             progress.show();
         }
 

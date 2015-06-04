@@ -1,6 +1,10 @@
 <resources>
-    <string name="url_server">http://192.168.0.105:8080/GreeningU</string>
-
+    <string name="visualizar_url">Visualizar URL do servidor</string>
+    <string name="nova_url">Nova URL</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="atualizar_url_servidor">Atualizar URL do servidor</string>
+    <string name="sair">Sair</string>
+    <string name="enviar">Enviar</string>
 
     <string name="app_name">GreeningU</string>
     <string name="action_settings">Settings</string>
@@ -33,6 +37,7 @@
     <string name="descricao_postagem">Descrição</string>
     <string name="selecionar_imagem">Selecionar Imagem...</string>
     <string name="title_activity_teste_img">TesteImgActivity</string>
+    <string name="title_activity_atualizar_url_servidor">AtualizarUrlServidorActivity</string>
 
     <!-- Menus-->
     <string name="menu_user">Info User</string>

@@ -1,5 +1,6 @@
 package com.greeningu;
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
     private ProgressDialog progress;
     private EditText edtUsuario;
     private EditText edtSenha;
+    private static final String FALHA_AC_SERV = "Falha ao acessar o servidor.";
     public static String msg = "";
 
     @Override
@@ -32,8 +34,7 @@ public class MainActivity extends ActionBarActivity {
 
         edtUsuario = (EditText)findViewById(R.id.edtUsuario);
         edtSenha = (EditText)findViewById(R.id.edtSenha);
-        edtUsuario.setText("");
-        edtSenha.setText("");
+
     }
 
     public void btnRegistroClick(View v){
@@ -77,10 +78,9 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_sair) {
+            finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -122,7 +122,7 @@ public class MainActivity extends ActionBarActivity {
             super.onPostExecute(s);
 
             if(s.contains("Falha")) {
-                Toast.makeText(MainActivity.this, "Servidor Offline", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, FALHA_AC_SERV, Toast.LENGTH_SHORT).show();
             } else {
                 Gson gson = new Gson();
                 MensagemPadrao msg = gson.fromJson(s, MensagemPadrao.class);
@@ -159,7 +159,7 @@ public class MainActivity extends ActionBarActivity {
 
             } else{
                 progress.cancel();
-                Toast.makeText(MainActivity.this,s,Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Falha ao acessar o servidor.",Toast.LENGTH_LONG).show();
             }
         }
 
