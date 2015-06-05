@@ -10,12 +10,12 @@ public class PostagemSimplificada implements Serializable{
 	 */
 	private static final long serialVersionUID = -2495223781850496807L;
 	private String titulo;
-	private Date dataPostagem;
+	private String dataPostagem;
 	private String nomeUsuario;
 	
 	public PostagemSimplificada(){}
-	
-	public PostagemSimplificada(String titulo, Date dataPostagem,
+
+	public PostagemSimplificada(String titulo, String dataPostagem,
 			String nomeUsuario) {
 		super();
 		this.titulo = titulo;
@@ -31,11 +31,11 @@ public class PostagemSimplificada implements Serializable{
 		this.titulo = titulo;
 	}
 
-	public Date getDataPostagem() {
+	public String getDataPostagem() {
 		return dataPostagem;
 	}
 
-	public void setDataPostagem(Date dataPostagem) {
+	public void setDataPostagem(String dataPostagem) {
 		this.dataPostagem = dataPostagem;
 	}
 
@@ -85,5 +85,7 @@ public class PostagemSimplificada implements Serializable{
 			return false;
 		return true;
 	}
-
+	
+	
+	
 }

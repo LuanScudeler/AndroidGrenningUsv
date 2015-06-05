@@ -38,7 +38,7 @@ public class PostagemREST {
 
     }
 
-    public List<PostagemSimplificada> listarNovasPostagens(Integer idusuario){
+    public ArrayList<PostagemSimplificada> listarNovasPostagens(Integer idusuario){
 
         ArrayList<PostagemSimplificada> lista = new ArrayList<PostagemSimplificada>();
 

@@ -221,6 +221,9 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
 
     public void btnEnviarClick(View v){
 
+        edtTituloPostagem = (EditText) findViewById(R.id.edtTituloPostagem);
+        edtDescricaoPostagem = (EditText) findViewById(R.id.edtDescricaoPostagem);
+
         if(edtTituloPostagem.getText().toString().equals("")){
             Toast.makeText(HomeActivity.this,"Insira um título!",Toast.LENGTH_SHORT).show();
         } else if(edtDescricaoPostagem.getText().toString().equals("")){
@@ -240,9 +243,6 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
                 String imgStr = CodificadorBase64.codificarParaString(b);
 
                 Postagem postagem = new Postagem();
-
-                edtTituloPostagem = (EditText) findViewById(R.id.edtTituloPostagem);
-                edtDescricaoPostagem = (EditText) findViewById(R.id.edtDescricaoPostagem);
 
                 postagem.setIdUsuario(usuario.getId());
                 postagem.setTitulo(edtTituloPostagem.getText().toString());
