@@ -40,7 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="INFO USER SCREEN"
+        android:text="Informações do seu perfil"
+        android:textSize="20dp"
         android:id="@+id/textView4"
         android:layout_marginTop="37dp"
         android:layout_alignParentTop="true"
@@ -60,12 +61,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="comunidades."
+        android:text=" comunidade(s)."
         android:id="@+id/textView5"
-        android:layout_alignBaseline="@+id/qtdeComu"
-        android:layout_alignBottom="@+id/qtdeComu"
-        android:layout_toRightOf="@+id/textView7"
-        android:layout_toEndOf="@+id/textView7" />
+        android:layout_below="@+id/qtdePosts"
+        android:layout_toRightOf="@+id/qtdeComu"
+        android:layout_toEndOf="@+id/qtdeComu" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Qtde de posts: "
+        android:text="Qtde. de posts: "
         android:id="@+id/textView7"
         android:layout_above="@+id/textView"
         android:layout_alignParentLeft="true"

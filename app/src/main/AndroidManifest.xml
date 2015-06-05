@@ -41,11 +41,11 @@
             android:label="@string/title_activity_lista_comunidades" >
         </activity>
         <activity
-            android:name=".DetalhesComunidadeActivity"
+            android:name=".MenuDetalhesComunidadeActivity"
             android:label="@string/title_activity_detalhes_comunidade" >
         </activity>
         <activity
-            android:name=".DetalhesUsuarioActivity"
+            android:name=".MenuDetalhesUsuarioActivity"
             android:label="@string/title_activity_detalhes_usuario" >
         </activity>
     </application>

@@ -14,7 +14,7 @@ import com.greeningu.wsclient.UsuarioREST;
 /**
  * Created by Luan on 29/05/2015.
  */
-public class DetalhesUsuarioActivity extends ActionBarActivity {
+public class MenuDetalhesUsuarioActivity extends ActionBarActivity {
 
     TextView username, qtdePosts, qtdeComu;
     String usuarioJson;
@@ -31,7 +31,6 @@ public class DetalhesUsuarioActivity extends ActionBarActivity {
         qtdePosts = (TextView)findViewById(R.id.qtdePosts);
         qtdeComu = (TextView)findViewById(R.id.qtdeComu);
 
-        //TODO: Trazer quantidade de comunidades
         if(getIntent().getExtras() != null ){
             usuarioJson = getIntent().getExtras().getString("usuario");
             usuario = new Gson().fromJson(usuarioJson, Usuario.class);
@@ -43,29 +42,33 @@ public class DetalhesUsuarioActivity extends ActionBarActivity {
         dua.execute(usuario.getId());
     }
 
-    public class DetalhesUsuarioAsysnc extends AsyncTask<Integer, Integer, Integer>{
+    public class DetalhesUsuarioAsysnc extends AsyncTask<Integer, Integer,  Object[]>{
 
         @Override
-        protected Integer doInBackground(Integer... idUser) {
-            Integer result = null;
+        protected Object[] doInBackground(Integer... idUser) {
+
+            Object[] results = new Object[2];
 
             UsuarioREST uRest = new UsuarioREST();
 
-            result = uRest.getQtdePosts(idUser[0]);
+            results[0] = (Integer)uRest.getQtdePosts(idUser[0]);
+            results[1] = (Integer)uRest.getQtdeComunidade(idUser[0]);
 
-            return result;
+            return results;
         }
 
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(DetalhesUsuarioActivity.this);
-            progress.setMessage("Buscando informaçõees do usuário...");
+            progress = new ProgressDialog(MenuDetalhesUsuarioActivity.this);
+            progress.setMessage("Buscando informacoes do usuario...");
             progress.show();
         }
 
         @Override
-        protected void onPostExecute(Integer result) {
-            qtdePosts.setText(result.toString());
+        protected void onPostExecute( Object[] result) {
+            super.onPostExecute(result);
+            qtdePosts.setText(result[0].toString());
+            qtdeComu.setText(result[1].toString());
             progress.cancel();
         }
     }

@@ -3,7 +3,6 @@ package com.greeningu;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,15 +24,17 @@ import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
+import com.greeningu.bean.Comunidade;
 import com.greeningu.bean.MensagemPadrao;
 import com.greeningu.bean.Postagem;
 import com.greeningu.bean.Usuario;
 import com.greeningu.util.CodificadorBase64;
+import com.greeningu.wsclient.ComunidadeREST;
 import com.greeningu.wsclient.PostagemREST;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -82,6 +84,8 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(viewpager);
 
+
+
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -127,22 +131,31 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
 
         switch (id){
             case R.id.menu_infouser:
-                Intent intent = new Intent(this, DetalhesUsuarioActivity.class);
+                Log.d("Entrou: ", "Sim");
+                Intent intent = new Intent(this, MenuDetalhesUsuarioActivity.class);
                 Bundle b = new Bundle();
                 b.putString("usuario", usuarioJson);
                 intent.putExtras(b);
                 startActivity(intent);
                 return true;
-            case R.id.menu_infocommunity:
-                // TODO nova tela
+            case R.id.menu_infocomu:
+                Log.d("Entrou: ", "Sim");
+                Intent intent2 = new Intent(this, MenuDetalhesComunidadeActivity.class);
+                Bundle b2 = new Bundle();
+                b2.putString("usuario", usuarioJson);
+                intent2.putExtras(b2);
+                startActivity(intent2);
                 return true;
+            default:
+                Log.e("Caiu no default: ", "Sim");
+                return super.onOptionsItemSelected(item);
         }
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+      /*  if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
-        return super.onOptionsItemSelected(item);
+
     }
 
     @Override
@@ -248,6 +261,7 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
         }
     }
 
+
     // ########## Asysnc extended classes ##########
 
     public class InserirPostagemAsync extends AsyncTask<Postagem, String, String> {
@@ -298,4 +312,6 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
             }
         }
     }
+
+
 }

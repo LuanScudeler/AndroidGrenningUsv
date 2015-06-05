@@ -7,7 +7,7 @@
         android:title="@string/menu_user"
         app:showAsAction="never" />
 
-    <item android:id="@+id/menu_infocommunity"
+    <item android:id="@+id/menu_infocomu"
         android:title="@string/menu_community"
         app:showAsAction="never" />
 

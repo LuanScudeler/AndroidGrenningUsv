@@ -61,6 +61,38 @@ public class UsuarioREST {
         return qtde;
     }
 
+    public Integer getQtdeComunidade(Integer id){
+        Integer qtde = null;
+
+        String[]resposta = new WebServiceCliente().get(Constants.SERVER_URL + URL_WS + "/qtdeComunidades/" + String.valueOf(id));
+        if(resposta[0].equals("200")){
+            qtde = Integer.parseInt(resposta[1]);
+        }
+        else{
+            Log.e(ERRO,resposta[1]);
+            return null;
+        }
+
+        return qtde;
+    }
+
+    public String getNomeComunidade(Integer id){
+
+        String nomeComunidade = null;
+
+        String[]resposta = new WebServiceCliente().get(Constants.SERVER_URL + URL_WS + "/nomeComunidade/" + String.valueOf(id));
+        if(resposta[0].equals("200")){
+            nomeComunidade = resposta[1];
+        }
+        else{
+            Log.e(ERRO,resposta[1]);
+            return null;
+        }
+
+        Log.e("NomeComunidade: ", nomeComunidade);
+
+        return nomeComunidade;
+    }
 
 }
 
