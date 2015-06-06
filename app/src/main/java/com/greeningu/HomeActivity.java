@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.greeningu.bean.Comunidade;
 import com.greeningu.bean.MensagemPadrao;
 import com.greeningu.bean.Postagem;
+import com.greeningu.bean.PostagemSimplificada;
 import com.greeningu.bean.Usuario;
 import com.greeningu.util.CodificadorBase64;
 import com.greeningu.wsclient.ComunidadeREST;
@@ -55,8 +56,8 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
 
     // ########## Global resources ##########
     private String usuarioJson;
-    private Usuario usuario;
-    private ProgressDialog dialog;
+    public static Usuario usuario;
+    public static ProgressDialog dialog;
 
     public static final String FALHA_AC_SERV = "Falha ao acessar o serviço";
 
@@ -92,7 +93,7 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
                 if(position == 0){
                    // TODO
                 } else if(position == 1){
-                    // TODO
+                    // DOING
                 }
             }
 
@@ -107,12 +108,16 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
             }
         });
 
-        // ########## createPosts ##########
+        // ########## Create Posts ##########
 
         btnSelecionarImagem = (Button) findViewById(R.id.btnSelecionarImagem);
         edtTituloPostagem = (EditText) findViewById(R.id.edtTituloPostagem);
         edtDescricaoPostagem = (EditText) findViewById(R.id.edtDescricaoPostagem);
         btnEnviar = (Button) findViewById(R.id.btnEnviar);
+
+        // ########## New Posts ##########
+
+        // Doing
     }
 
     @Override
@@ -223,6 +228,7 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
 
         edtTituloPostagem = (EditText) findViewById(R.id.edtTituloPostagem);
         edtDescricaoPostagem = (EditText) findViewById(R.id.edtDescricaoPostagem);
+        ivImagemPostagem = (ImageView) findViewById(R.id.ivImagemPostagem);
 
         if(edtTituloPostagem.getText().toString().equals("")){
             Toast.makeText(HomeActivity.this,"Insira um título!",Toast.LENGTH_SHORT).show();
@@ -311,6 +317,7 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
 
             }
         }
+
     }
 
 

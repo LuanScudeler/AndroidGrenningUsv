@@ -42,4 +42,5 @@
     <!-- Menus-->
     <string name="menu_user">Info User</string>
     <string name="menu_community">Info Community</string>
+    <string name="title_activity_novas_postagens">NovasPostagensActivity</string>
 </resources>

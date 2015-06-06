@@ -48,9 +48,10 @@
             android:name=".MenuDetalhesUsuarioActivity"
             android:label="@string/title_activity_detalhes_usuario" >
         </activity>
-        <activity android:name=".DetalhesComunidadeActivity"
+        <activity
+            android:name=".DetalhesComunidadeActivity"
             android:label="Detalhes da comunidade" >
-            </activity>
+        </activity>
     </application>
 
 </manifest>
