@@ -45,12 +45,12 @@
             android:label="@string/title_activity_detalhes_comunidade" >
         </activity>
         <activity
-            android:name=".MenuDetalhesUsuarioActivity"
-            android:label="@string/title_activity_detalhes_usuario" >
-        </activity>
-        <activity
             android:name=".DetalhesComunidadeActivity"
             android:label="Detalhes da comunidade" >
+        </activity>
+        <activity
+            android:name=".NovaPostagemActivity"
+            android:label="Nova Postagem" >
         </activity>
     </application>
 

@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -32,6 +33,7 @@ import com.greeningu.bean.Usuario;
 import com.greeningu.util.CodificadorBase64;
 import com.greeningu.wsclient.ComunidadeREST;
 import com.greeningu.wsclient.PostagemREST;
+import com.greeningu.wsclient.UsuarioREST;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,25 +41,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class HomeActivity extends ActionBarActivity implements android.support.v7.app.ActionBar.TabListener {
-
-    private android.support.v7.app.ActionBar actionbar;
-    private ViewPager viewpager;
-    private FragmentPagerAdapter ft;
-
-    // ########## createPosts ##########
-    private static String imgPath;
-    private Button btnSelecionarImagem;
-    private Button btnEnviar;
-    private EditText edtTituloPostagem;
-    private EditText edtDescricaoPostagem;
-    private ImageView ivImagemPostagem;
-    public static final int RESULT_LOAD_IMG = 1;
+public class HomeActivity extends ActionBarActivity {
 
     // ########## Global resources ##########
-    private String usuarioJson;
-    public static Usuario usuario;
     public static ProgressDialog dialog;
+    TextView username, qtdePosts, qtdeComu;
+    String usuarioJson;
+    Usuario usuario;
+
+    private ProgressDialog progress;
+
 
     public static final String FALHA_AC_SERV = "Falha ao acessar o serviço";
 
@@ -68,56 +61,20 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        if(getIntent().getExtras() != null){
+        username = (TextView)findViewById(R.id.username);
+        qtdePosts = (TextView)findViewById(R.id.qtdePosts);
+        qtdeComu = (TextView)findViewById(R.id.qtdeComu);
+
+        if(getIntent().getExtras() != null ){
             usuarioJson = getIntent().getExtras().getString("usuario");
-            usuario = new Gson().fromJson(usuarioJson,Usuario.class);
+            usuario = new Gson().fromJson(usuarioJson, Usuario.class);
         }
 
-        viewpager = (ViewPager) findViewById(R.id.pager);
-        viewpager.setAdapter(new FragmentPageAdapter(getSupportFragmentManager()));
+        username.setText(usuario.getNome());
 
+        DetalhesUsuarioAsysnc dua = new DetalhesUsuarioAsysnc();
+        dua.execute(usuario.getId());
 
-        actionbar = getSupportActionBar();
-        actionbar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
-        actionbar.addTab(actionbar.newTab().setText("Criar postagem").setTabListener(this));
-        actionbar.addTab(actionbar.newTab().setText("Novas Postagens").setTabListener(this));
-
-        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        tabs.setViewPager(viewpager);
-
-
-
-        tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position == 0){
-                   // TODO
-                } else if(position == 1){
-                    // DOING
-                }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                actionbar.setSelectedNavigationItem(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        // ########## Create Posts ##########
-
-        btnSelecionarImagem = (Button) findViewById(R.id.btnSelecionarImagem);
-        edtTituloPostagem = (EditText) findViewById(R.id.edtTituloPostagem);
-        edtDescricaoPostagem = (EditText) findViewById(R.id.edtDescricaoPostagem);
-        btnEnviar = (Button) findViewById(R.id.btnEnviar);
-
-        // ########## New Posts ##########
-
-        // Doing
     }
 
     @Override
@@ -135,13 +92,12 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
         int id = item.getItemId();
 
         switch (id){
-            case R.id.menu_infouser:
-                Log.d("Entrou: ", "Sim");
-                Intent intent = new Intent(this, MenuDetalhesUsuarioActivity.class);
+            case R.id.menu_nova_postagem:
+                Intent i = new Intent(HomeActivity.this, NovaPostagemActivity.class);
                 Bundle b = new Bundle();
-                b.putString("usuario", usuarioJson);
-                intent.putExtras(b);
-                startActivity(intent);
+                b.putString("usuario",usuarioJson);
+                i.putExtras(b);
+                startActivity(i);
                 return true;
             case R.id.menu_infocomu:
                 Log.d("Entrou: ", "Sim");
@@ -151,174 +107,45 @@ public class HomeActivity extends ActionBarActivity implements android.support.v
                 intent2.putExtras(b2);
                 startActivity(intent2);
                 return true;
+            case R.id.menu_listar_postagens:
+                // TODO
             default:
                 Log.e("Caiu no default: ", "Sim");
                 return super.onOptionsItemSelected(item);
         }
-        //noinspection SimplifiableIfStatement
-      /*  if (id == R.id.action_settings) {
-            return true;
-        }*/
-
-
     }
 
-    @Override
-    public void onTabSelected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
-        viewpager.setCurrentItem(tab.getPosition());
-    }
+    public class DetalhesUsuarioAsysnc extends AsyncTask<Integer, Integer,  Object[]>{
 
-    @Override
-    public void onTabUnselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+        @Override
+        protected Object[] doInBackground(Integer... idUser) {
 
-    }
+            Object[] results = new Object[2];
 
-    @Override
-    public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+            UsuarioREST uRest = new UsuarioREST();
 
-    }
+            results[0] = (Integer)uRest.getQtdePosts(idUser[0]);
+            results[1] = (Integer)uRest.getQtdeComunidade(idUser[0]);
 
-    // ########## createPosts ##########
-
-    public void btnSelecionarImagemClick(View v){
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-
-            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
-                    && null != data) {
-
-
-                Uri selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-                Cursor cursor = getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
-
-                cursor.moveToFirst();
-
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String imgDecodableString = cursor.getString(columnIndex);
-                cursor.close();
-                ivImagemPostagem = (ImageView) findViewById(R.id.ivImagemPostagem);
-
-                imgPath = imgDecodableString;
-
-                ivImagemPostagem.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-
-            } else {
-                Toast.makeText(this, "Você não escolheu uma imagem.",Toast.LENGTH_LONG).show();
-            }
-        } catch (Exception e) {
-            Toast.makeText(this, "Falha", Toast.LENGTH_LONG).show();
-            Log.e("Erro: ", e.getMessage());
+            return results;
         }
-
-
-    }
-
-
-    public void btnEnviarClick(View v){
-
-        edtTituloPostagem = (EditText) findViewById(R.id.edtTituloPostagem);
-        edtDescricaoPostagem = (EditText) findViewById(R.id.edtDescricaoPostagem);
-        ivImagemPostagem = (ImageView) findViewById(R.id.ivImagemPostagem);
-
-        if(edtTituloPostagem.getText().toString().equals("")){
-            Toast.makeText(HomeActivity.this,"Insira um título!",Toast.LENGTH_SHORT).show();
-        } else if(edtDescricaoPostagem.getText().toString().equals("")){
-            Toast.makeText(HomeActivity.this,"Insira uma descrição!",Toast.LENGTH_SHORT).show();
-        } else if(imgPath.equals(null) || imgPath.equals("")){
-            Toast.makeText(HomeActivity.this,"Selecione uma imagem!",Toast.LENGTH_SHORT).show();
-        } else {
-
-            try {
-                File file = new File(imgPath);
-                FileInputStream fis = new FileInputStream(file);
-
-                byte[] b = new byte[(int) file.length()];
-
-                fis.read(b);
-
-                String imgStr = CodificadorBase64.codificarParaString(b);
-
-                Postagem postagem = new Postagem();
-
-                postagem.setIdUsuario(usuario.getId());
-                postagem.setTitulo(edtTituloPostagem.getText().toString());
-                postagem.setDescricao(edtDescricaoPostagem.getText().toString());
-                postagem.setData(new Date());
-                postagem.setImagem(imgStr);
-
-                InserirPostagemAsync ipa = new InserirPostagemAsync();
-
-                ipa.execute(postagem);
-
-
-            } catch (java.io.IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    // ########## Asysnc extended classes ##########
-
-    public class InserirPostagemAsync extends AsyncTask<Postagem, String, String> {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new ProgressDialog(HomeActivity.this);
-            dialog.setMessage("Salvando postagem...");
-            dialog.show();
+            progress = new ProgressDialog(HomeActivity.this);
+            progress.setMessage("Buscando informacoes do usuario...");
+            progress.show();
         }
 
         @Override
-        protected String doInBackground(Postagem... params) {
-
-            PostagemREST prest = new PostagemREST();
-
-            String result = "";
-
-            try{
-                result = prest.inserir(params[0]);
-            } catch(Exception e){
-                e.printStackTrace();
-            }
-
-            return result;
+        protected void onPostExecute( Object[] result) {
+            super.onPostExecute(result);
+            qtdePosts.setText(result[0].toString());
+            qtdeComu.setText(result[1].toString());
+            progress.cancel();
         }
-
-        @Override
-        protected void onPostExecute(String s) {
-            dialog.cancel();
-            super.onPostExecute(s);
-
-            if(s.contains("Falha")) {
-                Toast.makeText(HomeActivity.this, FALHA_AC_SERV, Toast.LENGTH_SHORT).show();
-            } else {
-                Gson gson = new Gson();
-                MensagemPadrao msg = gson.fromJson(s, MensagemPadrao.class);
-                if(msg.getStatus().equals("OK")){
-                    Log.i("STATUS.INFO",msg.getInfo());
-                    Toast.makeText(HomeActivity.this,msg.getInfo(),Toast.LENGTH_SHORT).show();
-                }
-
-                edtTituloPostagem.setText("");
-                edtDescricaoPostagem.setText("");
-                ivImagemPostagem.setImageBitmap(null);
-
-            }
-        }
+    }
 
     }
 
 
-}
