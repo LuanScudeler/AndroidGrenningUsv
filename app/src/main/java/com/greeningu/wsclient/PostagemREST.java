@@ -54,6 +54,24 @@ public class PostagemREST {
         }
     }
 
+    public Postagem buscarPostagem(Integer idPost){
+
+        Postagem post = new Postagem();
+
+        String[] resposta = new WebServiceCliente().get(Constants.SERVER_URL + URL_WS + "/buscaPostagem/" + idPost);
+        if(resposta[0].equals("200")){
+
+
+            post = new Gson().fromJson(resposta[1], Postagem.class);
+
+            Log.d("Titulo: ", post.getTitulo() + " idPost: " + post.getId()  + " Data: " + post.getData());
+            return post;
+
+        } else {
+            return null;
+        }
+    }
+
 
 
 }

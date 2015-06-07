@@ -44,4 +44,6 @@
     <string name="menu_community">Info Community</string>
     <string name="title_activity_novas_postagens">NovasPostagensActivity</string>
     <string name="title_activity_nova_postagem">NovaPostagemActivityActivity</string>
+    <string name="title_activity_activity_lista_postagens">Lista de Postagens</string>
+    <string name="title_activity_detalhes_postagem">DetalhesPostagemActivity</string>
 </resources>

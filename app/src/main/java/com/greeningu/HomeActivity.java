@@ -2,43 +2,18 @@ package com.greeningu;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
-import com.greeningu.bean.Comunidade;
-import com.greeningu.bean.MensagemPadrao;
-import com.greeningu.bean.Postagem;
-import com.greeningu.bean.PostagemSimplificada;
 import com.greeningu.bean.Usuario;
-import com.greeningu.util.CodificadorBase64;
-import com.greeningu.wsclient.ComunidadeREST;
-import com.greeningu.wsclient.PostagemREST;
 import com.greeningu.wsclient.UsuarioREST;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Date;
 
 
 public class HomeActivity extends ActionBarActivity {
@@ -108,7 +83,12 @@ public class HomeActivity extends ActionBarActivity {
                 startActivity(intent2);
                 return true;
             case R.id.menu_listar_postagens:
-                // TODO
+                Intent intent3 = new Intent(this, activity_lista_postagens.class);
+                Bundle b3 = new Bundle();
+                b3.putString("usuario", usuarioJson);
+                intent3.putExtras(b3);
+                startActivity(intent3);
+                return true;
             default:
                 Log.e("Caiu no default: ", "Sim");
                 return super.onOptionsItemSelected(item);

@@ -9,6 +9,7 @@ public class PostagemSimplificada implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -2495223781850496807L;
+	private Integer id;
 	private String titulo;
 	private String dataPostagem;
 	private String nomeUsuario;
@@ -21,6 +22,14 @@ public class PostagemSimplificada implements Serializable{
 		this.titulo = titulo;
 		this.dataPostagem = dataPostagem;
 		this.nomeUsuario = nomeUsuario;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTitulo() {

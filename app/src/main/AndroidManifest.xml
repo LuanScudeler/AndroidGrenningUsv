@@ -52,6 +52,14 @@
             android:name=".NovaPostagemActivity"
             android:label="Nova Postagem" >
         </activity>
+        <activity
+            android:name=".activity_lista_postagens"
+            android:label="@string/title_activity_activity_lista_postagens" >
+        </activity>
+        <activity
+            android:name=".DetalhesPostagemActivity"
+            android:label="@string/title_activity_detalhes_postagem" >
+        </activity>
     </application>
 
 </manifest>
