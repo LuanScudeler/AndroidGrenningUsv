@@ -134,6 +134,5 @@ public class Postagem implements Serializable{
 			return false;
 		return true;
 	}
-
 	
 }

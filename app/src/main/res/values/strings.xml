@@ -31,6 +31,8 @@
     <!-- Detalhes comunidade -->
     <string name="participar">Participar</string>
 
+
+
     <!-- Home -->
     <string name="nova_postagem">Nova Postagem</string>
     <string name="titulo_postagem">Título da postagem</string>
@@ -38,12 +40,17 @@
     <string name="selecionar_imagem">Selecionar Imagem...</string>
     <string name="title_activity_teste_img">TesteImgActivity</string>
     <string name="title_activity_atualizar_url_servidor">AtualizarUrlServidorActivity</string>
+    <string name="voce_ja_fez">Você já fez</string>
+    <string name="postagem_s">postagem(s)</string>
+    <string name="pontuacao">Pontuação</string>
+    <string name="bem_vindo">Bem vindo</string>
+    <string name="bem_vinda">Bem vinda</string>
 
     <!-- Menus-->
-    <string name="menu_user">Info User</string>
-    <string name="menu_community">Info Community</string>
-    <string name="title_activity_novas_postagens">NovasPostagensActivity</string>
-    <string name="title_activity_nova_postagem">NovaPostagemActivityActivity</string>
+    <string name="menu_user">Informações do usuário</string>
+    <string name="menu_community">Informações da comunidade</string>
+    <string name="title_activity_nova_postagem">Nova postagem</string>
     <string name="title_activity_activity_lista_postagens">Lista de Postagens</string>
-    <string name="title_activity_detalhes_postagem">DetalhesPostagemActivity</string>
+    <string name="title_activity_detalhes_postagem">Detalhes da postagem</string>
+    <string name="votar">Votar</string>
 </resources>

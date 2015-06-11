@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/rl">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Titulo"
-        android:id="@+id/tvTitulo"
+        android:id="@+id/txtTitulo"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -17,8 +18,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Username"
-        android:id="@+id/tvUsername"
-        android:layout_below="@+id/tvTitulo"
+        android:id="@+id/txtNomeUsuario"
+        android:layout_below="@+id/txtTitulo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -28,16 +29,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text=" - "
         android:id="@+id/textView2"
-        android:layout_alignBottom="@+id/tvUsername"
-        android:layout_toRightOf="@+id/tvUsername"
-        android:layout_toEndOf="@+id/tvUsername" />
+        android:layout_alignBottom="@+id/txtNomeUsuario"
+        android:layout_toRightOf="@+id/txtNomeUsuario"
+        android:layout_toEndOf="@+id/txtNomeUsuario" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="date"
-        android:id="@+id/tvDate"
+        android:id="@+id/txtData"
         android:layout_alignBottom="@+id/textView2"
         android:layout_toRightOf="@+id/textView2"
         android:layout_toEndOf="@+id/textView2" />
@@ -47,7 +48,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="id_postagem"
-        android:id="@+id/tvIdPostagem"
+        android:id="@+id/txtIdPostagem"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

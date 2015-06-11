@@ -46,7 +46,8 @@
                 android:layout_below="@+id/edtDescricaoPostagem"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:onClick="btnSelecionarImagemClick"/>
+                android:onClick="btnSelecionarImagemClick"
+                android:textColor="#ff179625" />
 
 
             <ImageView
@@ -65,7 +66,8 @@
                 android:id="@+id/btnEnviar"
                 android:layout_below="@+id/ivImagemPostagem"
                 android:layout_centerHorizontal="true"
-                android:onClick="btnEnviarClick"/>
+                android:onClick="btnEnviarClick"
+                android:textColor="#ff179625" />
 
         </RelativeLayout>
 

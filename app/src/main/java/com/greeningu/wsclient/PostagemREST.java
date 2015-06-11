@@ -34,24 +34,25 @@ public class PostagemREST {
             Log.e(ERRO, resposta[1]);
             return resposta[1];
         }
-
-
     }
 
     public ArrayList<PostagemSimplificada> listarNovasPostagens(Integer idusuario){
+        Log.i("BUSCANDO POSTAGEM: ","ENTROU");
 
         ArrayList<PostagemSimplificada> lista = new ArrayList<PostagemSimplificada>();
 
         String[] resposta = new WebServiceCliente().get(Constants.SERVER_URL + URL_WS + "/listarSimplificadas/" + idusuario);
         if(resposta[0].equals("200")){
 
-            Type listType = new TypeToken<List<PostagemSimplificada>>(){}.getType();
-            lista = new Gson().fromJson(resposta[1],listType);
-            return lista;
+            if(resposta[1].contains("Não")){
+                lista = null;
+            } else{
+                Type listType = new TypeToken<List<PostagemSimplificada>>(){}.getType();
+                lista = new Gson().fromJson(resposta[1],listType);
+            }
 
-        } else {
-            return null;
         }
+        return lista;
     }
 
     public Postagem buscarPostagem(Integer idPost){

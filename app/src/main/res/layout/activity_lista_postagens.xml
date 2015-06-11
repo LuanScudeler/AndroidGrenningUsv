@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.greeningu.activity_lista_postagens">
+    tools:context="com.greeningu.ListaPostagensActivity">
 
     <ListView
         android:layout_width="wrap_content"

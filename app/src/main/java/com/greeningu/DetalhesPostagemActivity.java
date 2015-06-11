@@ -1,25 +1,30 @@
 package com.greeningu;
 
 import android.app.ProgressDialog;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.greeningu.bean.Postagem;
 import com.greeningu.bean.Usuario;
+import com.greeningu.util.CodificadorBase64;
 import com.greeningu.wsclient.PostagemREST;
 import com.greeningu.wsclient.UsuarioREST;
 
 
 public class DetalhesPostagemActivity extends ActionBarActivity {
 
-    TextView titulo, imagem, descricao;
-    Integer idPost = null;
+    TextView txtTitulo, txtDescricao;
+    ImageView ivImagem;
+    Integer idPostagem = null;
     private ProgressDialog progress;
 
     @Override
@@ -27,12 +32,17 @@ public class DetalhesPostagemActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_postagem);
 
+        txtTitulo = (TextView) findViewById(R.id.txtTitulo);
+        txtDescricao = (TextView) findViewById(R.id.txtDescricao);
+        ivImagem = (ImageView) findViewById(R.id.ivImagem);
+
+
         if(getIntent().getExtras() != null ){
-            idPost = getIntent().getExtras().getInt("idPost");
+            idPostagem = getIntent().getExtras().getInt("idPostagem");
         }
 
         DetalhesPostagemAsysnc dpa = new DetalhesPostagemAsysnc();
-        dpa.execute(idPost);
+        dpa.execute(idPostagem);
 
     }
 
@@ -62,9 +72,15 @@ public class DetalhesPostagemActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute( Postagem result) {
             super.onPostExecute(result);
-            titulo.setText(result.getTitulo().toString());
-            imagem.setText(result.getImagem().toString());
-            descricao.setText(result.getDescricao().toString());
+
+            byte[] b = CodificadorBase64.decodificar(result.getImagem());
+
+
+            txtTitulo.setText(result.getTitulo().toString());
+            txtDescricao.setText(result.getDescricao().toString());
+            ivImagem.setImageBitmap(BitmapFactory.decodeByteArray(b,0,b.length));
+
+            //Toast.makeText(DetalhesPostagemActivity.this,result.getTitulo(),Toast.LENGTH_SHORT).show();
             progress.cancel();
         }
     }

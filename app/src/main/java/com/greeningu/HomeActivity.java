@@ -20,7 +20,7 @@ public class HomeActivity extends ActionBarActivity {
 
     // ########## Global resources ##########
     public static ProgressDialog dialog;
-    TextView username, qtdePosts, qtdeComu;
+    TextView username, qtdePosts, txtPontuacao, txtSaudacao;
     String usuarioJson;
     Usuario usuario;
 
@@ -38,14 +38,16 @@ public class HomeActivity extends ActionBarActivity {
 
         username = (TextView)findViewById(R.id.username);
         qtdePosts = (TextView)findViewById(R.id.qtdePosts);
-        qtdeComu = (TextView)findViewById(R.id.qtdeComu);
+        txtPontuacao = (TextView)findViewById(R.id.txtPontuacao);
+        txtSaudacao = (TextView)findViewById(R.id.txtSaudacao);
 
         if(getIntent().getExtras() != null ){
             usuarioJson = getIntent().getExtras().getString("usuario");
             usuario = new Gson().fromJson(usuarioJson, Usuario.class);
         }
 
-        username.setText(usuario.getNome());
+        username.setText(usuario.getNome() + " " + usuario.getSobrenome());
+        txtPontuacao.setText(String.valueOf(usuario.getPontuacao()));
 
         DetalhesUsuarioAsysnc dua = new DetalhesUsuarioAsysnc();
         dua.execute(usuario.getId());
@@ -76,14 +78,14 @@ public class HomeActivity extends ActionBarActivity {
                 return true;
             case R.id.menu_infocomu:
                 Log.d("Entrou: ", "Sim");
-                Intent intent2 = new Intent(this, MenuDetalhesComunidadeActivity.class);
+                Intent intent2 = new Intent(this, InformacoesComunidadeActivity.class);
                 Bundle b2 = new Bundle();
                 b2.putString("usuario", usuarioJson);
                 intent2.putExtras(b2);
                 startActivity(intent2);
                 return true;
             case R.id.menu_listar_postagens:
-                Intent intent3 = new Intent(this, activity_lista_postagens.class);
+                Intent intent3 = new Intent(this, ListaPostagensActivity.class);
                 Bundle b3 = new Bundle();
                 b3.putString("usuario", usuarioJson);
                 intent3.putExtras(b3);
@@ -100,7 +102,7 @@ public class HomeActivity extends ActionBarActivity {
         @Override
         protected Object[] doInBackground(Integer... idUser) {
 
-            Object[] results = new Object[2];
+            Object[] results = new Object[3];
 
             UsuarioREST uRest = new UsuarioREST();
 
@@ -121,7 +123,16 @@ public class HomeActivity extends ActionBarActivity {
         protected void onPostExecute( Object[] result) {
             super.onPostExecute(result);
             qtdePosts.setText(result[0].toString());
-            qtdeComu.setText(result[1].toString());
+
+            String saud = "";
+            if(usuario.getSexo().equals("M")){
+                saud = HomeActivity.this.getResources().getString(R.string.bem_vindo);
+            } else if(usuario.getSexo().equals("F")) {
+                saud = HomeActivity.this.getResources().getString(R.string.bem_vinda);
+            }
+
+            txtSaudacao.setText(saud);
+
             progress.cancel();
         }
     }

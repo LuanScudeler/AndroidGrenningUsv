@@ -14,7 +14,7 @@ import com.greeningu.wsclient.UsuarioREST;
 /**
  * Created by Luan on 05/06/2015.
  */
-public class MenuDetalhesComunidadeActivity extends ActionBarActivity{
+public class InformacoesComunidadeActivity extends ActionBarActivity{
 
     TextView tvNomeComunidade;
     String usuarioJson;
@@ -24,7 +24,7 @@ public class MenuDetalhesComunidadeActivity extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_infocommunity);
+        setContentView(R.layout.activity_informacoes_comunidade);
 
         Log.d("Loaded: ", "Sim");
         tvNomeComunidade = (TextView)findViewById(R.id.tvNomeComunidade);
@@ -54,7 +54,7 @@ public class MenuDetalhesComunidadeActivity extends ActionBarActivity{
 
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(MenuDetalhesComunidadeActivity.this);
+            progress = new ProgressDialog(InformacoesComunidadeActivity.this);
             progress.setMessage("Buscando informacoes da comunidade...");
             progress.show();
         }
