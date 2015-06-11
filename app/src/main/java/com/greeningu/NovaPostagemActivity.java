@@ -57,7 +57,7 @@ public class NovaPostagemActivity extends ActionBarActivity {
         btnSelecionarImagem = (Button) findViewById(R.id.btnSelecionarImagem);
         edtTituloPostagem = (EditText) findViewById(R.id.edtTituloPostagem);
         edtDescricaoPostagem = (EditText) findViewById(R.id.edtDescricaoPostagem);
-        btnEnviar = (Button) findViewById(R.id.btnEnviar);
+        btnEnviar = (Button) findViewById(R.id.btnSend);
     }
 
 

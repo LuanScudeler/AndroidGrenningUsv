@@ -15,5 +15,8 @@
         android:title="Nova postagem"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/menu_comentario"
+        android:title="Comentario"
+        app:showAsAction="never"/>
 
 </menu>

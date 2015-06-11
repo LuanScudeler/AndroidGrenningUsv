@@ -46,11 +46,15 @@
     <string name="bem_vindo">Bem vindo</string>
     <string name="bem_vinda">Bem vinda</string>
 
+    <string name="title_activity_comentario">Comentario</string>
+    <string name="title_activity_enviar_comentario">Enviar Comentario</string>
+
     <!-- Menus-->
     <string name="menu_user">Informações do usuário</string>
     <string name="menu_community">Informações da comunidade</string>
     <string name="title_activity_nova_postagem">Nova postagem</string>
     <string name="title_activity_activity_lista_postagens">Lista de Postagens</string>
     <string name="title_activity_detalhes_postagem">Detalhes da postagem</string>
+
     <string name="votar">Votar</string>
 </resources>

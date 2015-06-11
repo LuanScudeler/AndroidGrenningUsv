@@ -91,6 +91,13 @@ public class HomeActivity extends ActionBarActivity {
                 intent3.putExtras(b3);
                 startActivity(intent3);
                 return true;
+            case R.id.menu_comentario:
+                Intent intent4 = new Intent(this, ComentarioActivity.class);
+                Bundle b4 = new Bundle();
+                b4.putString("usuario", usuarioJson);
+                intent4.putExtras(b4);
+                startActivity(intent4);
+                return true;
             default:
                 Log.e("Caiu no default: ", "Sim");
                 return super.onOptionsItemSelected(item);

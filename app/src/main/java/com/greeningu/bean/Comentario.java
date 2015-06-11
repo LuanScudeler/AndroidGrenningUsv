@@ -14,19 +14,16 @@ public class Comentario implements Serializable{
 	private Date data;
 	private String texto;
 	private Integer idUsuario;
-	private Integer numComentario;
 	private Integer idPostagem;
 	
 	public Comentario(){}
 
-	public Comentario(Integer id, Date data, String texto, Integer idUsuario,
-			Integer numComentario, Integer idPostagem) {
+	public Comentario(Integer id, Date data, String texto, Integer idUsuario, Integer idPostagem) {
 		super();
 		this.id = id;
 		this.data = data;
 		this.texto = texto;
 		this.idUsuario = idUsuario;
-		this.numComentario = numComentario;
 		this.idPostagem = idPostagem;
 	}
 
@@ -62,13 +59,7 @@ public class Comentario implements Serializable{
 		this.idUsuario = idUsuario;
 	}
 
-	public Integer getNumComentario() {
-		return numComentario;
-	}
 
-	public void setNumComentario(Integer numComentario) {
-		this.numComentario = numComentario;
-	}
 
 	public Integer getIdPostagem() {
 		return idPostagem;
@@ -88,8 +79,6 @@ public class Comentario implements Serializable{
 				+ ((idPostagem == null) ? 0 : idPostagem.hashCode());
 		result = prime * result
 				+ ((idUsuario == null) ? 0 : idUsuario.hashCode());
-		result = prime * result
-				+ ((numComentario == null) ? 0 : numComentario.hashCode());
 		result = prime * result + ((texto == null) ? 0 : texto.hashCode());
 		return result;
 	}
@@ -122,11 +111,6 @@ public class Comentario implements Serializable{
 			if (other.idUsuario != null)
 				return false;
 		} else if (!idUsuario.equals(other.idUsuario))
-			return false;
-		if (numComentario == null) {
-			if (other.numComentario != null)
-				return false;
-		} else if (!numComentario.equals(other.numComentario))
 			return false;
 		if (texto == null) {
 			if (other.texto != null)

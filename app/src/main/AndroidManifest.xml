@@ -60,6 +60,14 @@
             android:name=".DetalhesPostagemActivity"
             android:label="@string/title_activity_detalhes_postagem" >
         </activity>
+        <activity
+            android:name=".ComentarioActivity"
+            android:label="@string/title_activity_comentario" >
+        </activity>
+        <activity
+            android:name=".EnviarComentarioActivity"
+            android:label="@string/title_activity_enviar_comentario" >
+        </activity>
     </application>
 
 </manifest>
