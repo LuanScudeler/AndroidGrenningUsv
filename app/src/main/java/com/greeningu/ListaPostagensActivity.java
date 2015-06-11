@@ -68,6 +68,7 @@ public class ListaPostagensActivity extends ActionBarActivity {
                 Intent i = new Intent(ListaPostagensActivity.this, DetalhesPostagemActivity.class);
                 Bundle b = new Bundle();
                 b.putInt("idPostagem", idPostagem);
+                b.putString("usuario", usrJson);
                 i.putExtras(b);
                 startActivity(i);
             }

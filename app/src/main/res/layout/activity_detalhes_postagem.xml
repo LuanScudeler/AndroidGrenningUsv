@@ -61,7 +61,8 @@
                 android:id="@+id/btnVotar"
                 android:layout_below="@+id/rbVoto"
                 android:layout_centerHorizontal="true"
-                android:textColor="#ff179625" />
+                android:textColor="#ff179625"
+                android:onClick="btnVotarClick"/>
 
 
 

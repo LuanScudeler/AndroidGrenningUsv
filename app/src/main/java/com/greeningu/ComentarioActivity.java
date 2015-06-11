@@ -110,7 +110,7 @@ public class ComentarioActivity extends ActionBarActivity {
         }
     }
 
-    /*ENVIAR COMENTÁRIO*/
+    /*ENVIAR COMENTARIO*/
     public class EnviarComentarioAsysnc extends AsyncTask<Integer, Integer,  Integer[]> {
 
         @Override
@@ -146,7 +146,7 @@ public class ComentarioActivity extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             progress = new ProgressDialog(ComentarioActivity.this);
-            progress.setMessage("Enviando comentário...");
+            progress.setMessage("Enviando comentï¿½rio...");
             progress.show();
         }
 

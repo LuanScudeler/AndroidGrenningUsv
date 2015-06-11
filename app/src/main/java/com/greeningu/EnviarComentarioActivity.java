@@ -83,7 +83,7 @@ public class EnviarComentarioActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             progress = new ProgressDialog(EnviarComentarioActivity.this);
-            progress.setMessage("Enviando comentário...");
+            progress.setMessage("Enviando comentario...");
             progress.show();
     }
 
