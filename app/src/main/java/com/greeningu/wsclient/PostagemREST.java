@@ -36,7 +36,7 @@ public class PostagemREST {
         }
     }
 
-    public ArrayList<PostagemSimplificada> listarNovasPostagens(Integer idusuario){
+    public ArrayList<PostagemSimplificada> listarNovasPostagens(Integer idusuario)throws Exception{
         Log.i("BUSCANDO POSTAGEM: ","ENTROU");
 
         ArrayList<PostagemSimplificada> lista = new ArrayList<PostagemSimplificada>();

@@ -31,7 +31,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Descricao"
                 android:id="@+id/txtDescricao"
-                android:layout_below="@+id/txtTitulo"
+                android:layout_below="@+id/txtTexto"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:textColor="#ff179625" />

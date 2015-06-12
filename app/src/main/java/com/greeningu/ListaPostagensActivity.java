@@ -2,7 +2,6 @@ package com.greeningu;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -24,8 +23,6 @@ import com.greeningu.wsclient.PostagemREST;
 import com.greeningu.wsclient.VotoREST;
 
 import java.util.ArrayList;
-
-import static android.view.View.OnClickListener;
 
 
 public class ListaPostagensActivity extends ActionBarActivity {
@@ -87,6 +84,12 @@ public class ListaPostagensActivity extends ActionBarActivity {
             startActivity(i);
         } else {
             // TODO abrir tela de comentário
+            Intent i = new Intent(ListaPostagensActivity.this, ComentarioActivity.class);
+            Bundle b = new Bundle();
+            b.putInt("idPostagem", idPostagem);
+            b.putString("usuario", usrJson);
+            i.putExtras(b);
+            startActivity(i);
             Toast.makeText(ListaPostagensActivity.this, "Esperando tela do Luan...", Toast.LENGTH_SHORT).show();
         }
     }
@@ -105,7 +108,12 @@ public class ListaPostagensActivity extends ActionBarActivity {
         protected ArrayList<PostagemSimplificada> doInBackground(Integer... idUser) {
             PostagemREST rest = new PostagemREST();
 
-            ArrayList<PostagemSimplificada> postagens = rest.listarNovasPostagens(idUser[0]);
+            ArrayList<PostagemSimplificada> postagens = null;
+            try {
+                postagens = rest.listarNovasPostagens(idUser[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             return postagens;
         }
@@ -200,7 +208,7 @@ public class ListaPostagensActivity extends ActionBarActivity {
             View v = inflater.inflate(R.layout.item_lista_postagens,null);
 
 
-            TextView titulo = (TextView)v.findViewById(R.id.txtTitulo);
+            TextView titulo = (TextView)v.findViewById(R.id.txtTexto);
             titulo.setText(ps.getTitulo());
 
             TextView username = (TextView)v.findViewById(R.id.txtNomeUsuario);

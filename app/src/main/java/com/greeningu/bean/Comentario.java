@@ -1,7 +1,6 @@
 package com.greeningu.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 public class Comentario implements Serializable{
@@ -11,14 +10,14 @@ public class Comentario implements Serializable{
 	 */
 	private static final long serialVersionUID = -1330738108388426158L;
 	private Integer id;
-	private Date data;
+	private String data;
 	private String texto;
 	private Integer idUsuario;
 	private Integer idPostagem;
 	
 	public Comentario(){}
 
-	public Comentario(Integer id, Date data, String texto, Integer idUsuario, Integer idPostagem) {
+	public Comentario(Integer id, String data, String texto, Integer idUsuario, Integer idPostagem) {
 		super();
 		this.id = id;
 		this.data = data;
@@ -35,11 +34,11 @@ public class Comentario implements Serializable{
 		this.id = id;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

@@ -1,13 +1,20 @@
 package com.greeningu;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,17 +23,25 @@ import com.greeningu.bean.Comentario;
 import com.greeningu.bean.MensagemPadrao;
 import com.greeningu.bean.Postagem;
 import com.greeningu.bean.Usuario;
+import com.greeningu.util.CodificadorBase64;
 import com.greeningu.wsclient.ComentarioREST;
 import com.greeningu.wsclient.PostagemREST;
+
+import java.util.ArrayList;
 
 
 public class ComentarioActivity extends ActionBarActivity {
 
+    protected ArrayList<Comentario> lista;
+
     TextView titulo, imagem, descricao;
     EditText conteudoComentario;
+    ImageView ivImage;
     private Button btnEnviarComment;
     Integer idPost = null;
     private ProgressDialog progress;
+
+    ProgressDialog dialog;
 
     Usuario usuario;
     private String usrJson;
@@ -40,29 +55,27 @@ public class ComentarioActivity extends ActionBarActivity {
         imagem = (TextView)findViewById(R.id.tvImagem);
         descricao = (TextView)findViewById(R.id.tvDescricao);
         btnEnviarComment = (Button)findViewById(R.id.button);
+        ivImage = (ImageView) findViewById(R.id.ivImage);
 
         conteudoComentario = (EditText)findViewById(R.id.etConteudoComentario);
-
 
         if(getIntent().getExtras() != null){
             usrJson = getIntent().getExtras().getString("usuario");
             usuario = new Gson().fromJson(usrJson, Usuario.class);
+            idPost = getIntent().getExtras().getInt("idPostagem");
         }
 
-
-        //RIGHT WAY - idPost vai vim do item selecionad no listView em ListaPostagem.class
-        /* if(getIntent().getExtras() != null ){
-            idPost = getIntent().getExtras().getInt("idPost");
-        }*/
+        lista = new ArrayList<Comentario>();
 
         //ID  DA POSTAGEM HARDCODED:
-        idPost = 1;
+        //idPost = 1;
 
+        Log.d("idPost: ", ""+idPost);
+
+        /*BUSCAR DETALHES DA POSTAGEM*/
         DetalhesPostagemAsysnc dpa = new DetalhesPostagemAsysnc();
         dpa.execute(idPost);
-
     }
-
 
     public void btnButtonSend(View v){
         Log.d("Click: ", "Sim");
@@ -75,6 +88,10 @@ public class ComentarioActivity extends ActionBarActivity {
         params[1] = usuario.getId();
 
         eca.execute(params);
+
+        /*LISTAR COMENTARIOS*/
+        ListaComentarioAdapter adapter = new ListaComentarioAdapter();
+        adapter.notifyDataSetChanged();
 
     }
     public class DetalhesPostagemAsysnc extends AsyncTask<Integer, Integer,  Postagem> {
@@ -106,6 +123,15 @@ public class ComentarioActivity extends ActionBarActivity {
             titulo.setText(result.getTitulo().toString());
             imagem.setText(result.getImagem().toString());
             descricao.setText(result.getDescricao().toString());
+
+            /**/
+            //byte[] b = CodificadorBase64.decodificar(result.getImagem());
+            //ivImage.setImageBitmap(BitmapFactory.decodeByteArray(b, 0, b.length));
+            /**/
+
+            ListarComentariosAsync lca = new ListarComentariosAsync();
+            lca.execute(idPost);
+
             progress.cancel();
         }
     }
@@ -162,7 +188,93 @@ public class ComentarioActivity extends ActionBarActivity {
                 Toast.makeText(ComentarioActivity.this, "Falha no envio.", Toast.LENGTH_SHORT).show();
 
             conteudoComentario.setText("");
-
         }
     }
+
+
+    /*LISTAR COMENTARIOS*/
+    public class ListarComentariosAsync  extends AsyncTask<Integer, String, ArrayList<Comentario>> {
+
+        @Override
+        protected ArrayList<Comentario> doInBackground(Integer... idPost) {
+            ComentarioREST rest = new ComentarioREST();
+            Log.d("LISTAR_COMENTARIOS: ", "SIM");
+            ArrayList<Comentario> comentarios = null;
+            try {
+                Log.d("IDpost: ", ""+ idPost[0] );
+                comentarios = rest.listarComentarios(idPost[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return comentarios;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Comentario> comentarios) {
+            super.onPostExecute(comentarios);
+            if(comentarios != null) {
+                ListView lvListaComentarios = (ListView) findViewById(R.id.lvComentarios);
+
+                lista = comentarios;
+
+                ListaComentarioAdapter adapter = new ListaComentarioAdapter(lista);
+                lvListaComentarios.setAdapter(adapter);
+
+            } else {
+                Toast.makeText(ComentarioActivity.this,"Erro",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+
+
+    public class ListaComentarioAdapter extends BaseAdapter {
+
+        private ArrayList<Comentario> lista;
+
+        public ListaComentarioAdapter(ArrayList<Comentario> lista) {
+            this.lista = lista;
+        }
+
+        public ListaComentarioAdapter() {
+        }
+
+        @Override
+        public int getCount() {
+            return lista.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return lista.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            Comentario ps = lista.get(position);
+            View layout;
+
+            LayoutInflater inflater = (LayoutInflater)ComentarioActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = inflater.inflate(R.layout.item_lista_comentarios,null);
+
+            TextView texto = (TextView)v.findViewById(R.id.txtTexto);
+            texto.setText(ps.getTexto());
+
+            TextView data = (TextView)v.findViewById(R.id.txtData);
+            data.setText(ps.getData());
+
+            this.notifyDataSetChanged();
+
+            return v;
+        }
+    }
+
+
 }

@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Titulo"
-        android:id="@+id/txtTitulo"
+        android:id="@+id/txtTexto"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -19,7 +19,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Username"
         android:id="@+id/txtNomeUsuario"
-        android:layout_below="@+id/txtTitulo"
+        android:layout_below="@+id/txtTexto"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
