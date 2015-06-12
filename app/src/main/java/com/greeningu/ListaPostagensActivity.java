@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.greeningu.bean.PostagemSimplificada;
 import com.greeningu.bean.Usuario;
 import com.greeningu.wsclient.PostagemREST;
+import com.greeningu.wsclient.VotoREST;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ public class ListaPostagensActivity extends ActionBarActivity {
     Usuario usuario;
     private String usrJson;
     ProgressDialog dialog;
+    Integer idPostagem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +65,30 @@ public class ListaPostagensActivity extends ActionBarActivity {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int idPostagem = lista.get(position).getId();
+                idPostagem = lista.get(position).getId();
 
-                Intent i = new Intent(ListaPostagensActivity.this, DetalhesPostagemActivity.class);
-                Bundle b = new Bundle();
-                b.putInt("idPostagem", idPostagem);
-                b.putString("usuario", usrJson);
-                i.putExtras(b);
-                startActivity(i);
+                Integer[] params = new Integer[2];
+                params[0] = usuario.getId();
+                params[1] = idPostagem;
+
+                JaVotadoAsync jva = new JaVotadoAsync();
+                jva.execute(params);
             }
         };
+    }
+
+    public void abrirTelas(Boolean flag){
+        if(!flag){
+            Intent i = new Intent(ListaPostagensActivity.this, DetalhesPostagemActivity.class);
+            Bundle b = new Bundle();
+            b.putInt("idPostagem", idPostagem);
+            b.putString("usuario", usrJson);
+            i.putExtras(b);
+            startActivity(i);
+        } else {
+            // TODO abrir tela de comentário
+            Toast.makeText(ListaPostagensActivity.this, "Esperando tela do Luan...", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public class ListarPostagensAsync  extends AsyncTask<Integer, String, ArrayList<PostagemSimplificada>> {
@@ -114,6 +130,38 @@ public class ListaPostagensActivity extends ActionBarActivity {
                 dialog.cancel();
                 finish();
             }
+        }
+    }
+
+    public class JaVotadoAsync extends AsyncTask<Integer[], Void, Boolean>{
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(ListaPostagensActivity.this);
+            dialog.setMessage("Verificando postagem...");
+            dialog.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(Integer[]... params) {
+
+            VotoREST vr = new VotoREST();
+
+            Integer[] p = params[0];
+
+            Log.i("PARAMS",p[0].toString() + "," + p[1].toString());
+
+            return vr.jaVotado(p[0], p[1]);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            abrirTelas(aBoolean);
+            dialog.cancel();
+
         }
     }
 

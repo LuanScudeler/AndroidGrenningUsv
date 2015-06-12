@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.greeningu.bean.MensagemPadrao;
 import com.greeningu.bean.Postagem;
 import com.greeningu.bean.Usuario;
 import com.greeningu.bean.Voto;
@@ -133,7 +134,10 @@ public class DetalhesPostagemActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(DetalhesPostagemActivity.this,s,Toast.LENGTH_SHORT).show();
+
+            MensagemPadrao mp = new Gson().fromJson(s,MensagemPadrao.class);
+
+            Toast.makeText(DetalhesPostagemActivity.this,mp.getStatus(),Toast.LENGTH_SHORT).show();
             dialog.cancel();
             Intent i = new Intent(DetalhesPostagemActivity.this, HomeActivity.class);
             Bundle b = new Bundle();
